@@ -1,0 +1,1409 @@
+# Studocu AI Design System - Comprehensive Coding Guidelines
+
+## 🎯 Project Overview
+This is the **Studocu AI Design System Template** - a production-ready foundation for building AI-powered educational features with Next.js 15, React 19, and TypeScript. Every new Studocu AI feature must be built using this template to ensure consistency, quality, and maintainability.
+
+## 📋 Technology Stack
+- **Framework**: Next.js 15.0+ (App Router)
+- **UI Library**: React 19.0+
+- **Language**: TypeScript 5.9+ (strict mode)
+- **Styling**: CSS Modules (no frameworks)
+- **Icons**: Font Awesome 6.5+
+- **Editor**: TipTap 3.9+
+- **Path Aliases**: @/, @design-system/, @components/
+
+---
+
+## 🏗️ Component Architecture
+
+### Component Structure (MANDATORY)
+Every component MUST follow this exact 4-file pattern:
+
+```
+ComponentName/
+├── ComponentName.tsx        # React component implementation
+├── ComponentName.module.css # Component-specific styles
+├── ComponentName.types.ts   # TypeScript interfaces and types
+└── index.ts                 # Barrel export
+```
+
+**No exceptions.** This structure ensures:
+- Consistent codebase organization
+- Easy navigation and maintenance
+- Clear separation of concerns
+- Type safety across the application
+
+### File Organization Rules
+- **Location**: Components go in `src/design-system/components/[category]/`
+- **Categories**: branding, buttons, cards, chat, editor, exam, home, icons, inputs, layout, modals, onboarding, quiz, theme, typography, uploads
+- **Shared utilities**: `src/lib/`
+- **Custom hooks**: `src/hooks/`
+- **Type definitions**: `src/types/`
+- **Keep related files close together**
+
+---
+
+## 🎨 Design Tokens System
+
+### Token Usage (CRITICAL)
+**ALWAYS use design tokens. NEVER hardcode values.**
+
+```css
+/* ✅ CORRECT - Use tokens */
+.container {
+  padding: var(--spacing-md);
+  background-color: var(--color-surface-primary);
+  color: var(--color-text-primary);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-md);
+  box-shadow: var(--shadow-md);
+}
+
+/* ❌ WRONG - Hardcoded values */
+.container {
+  padding: 16px;
+  background-color: #ffffff;
+  color: #333333;
+  border-radius: 12px;
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+```
+
+### Available Token Categories
+
+#### Colors
+```css
+/* Base color scales (50-900) */
+--color-primary-{50-900}
+--color-secondary-{50-900}
+--color-neutral-{50-900}
+--color-success-{50-900}
+--color-error-{50-900}
+--color-warning-{50-900}
+--color-info-{50-900}
+
+/* Semantic colors (auto-adjust for light/dark) */
+--color-text-primary
+--color-text-secondary
+--color-text-disabled
+--color-text-inverse
+--color-text-strong
+--color-text-subtle
+--color-text-xsubtle
+--color-text-title
+
+--color-background
+--color-background-secondary
+--color-background-tertiary
+
+--color-surface-primary
+--color-surface-secondary
+--color-surface-tertiary
+--color-surface-elevated
+
+--color-border
+--color-border-light
+--color-border-strong
+--color-border-focus
+--color-border-interactive
+
+--color-interactive
+--color-interactive-hover
+--color-interactive-active
+--color-interactive-link
+
+--color-primary
+--color-success
+--color-error
+--color-warning
+--color-info
+
+/* Status colors for UI elements */
+--color-status-info-container
+--color-status-info-foreground
+--color-status-success-container
+--color-status-success-foreground
+--color-status-warning-container
+--color-status-warning-foreground
+--color-status-danger-container
+--color-status-danger-foreground
+
+/* Gradients */
+--gradient-studocu
+```
+
+#### Typography
+```css
+/* Font families */
+--font-family-primary    /* DM Sans - main UI */
+--font-family-display    /* Lazzer - headings/hero */
+--font-family-mono      /* Fira Code - code blocks */
+
+/* Font sizes */
+--font-size-xs     /* 12px */
+--font-size-sm     /* 14px */
+--font-size-md     /* 16px */
+--font-size-lg     /* 18px */
+--font-size-xl     /* 22px */
+--font-size-2xl    /* 26px */
+--font-size-3xl    /* 32px */
+--font-size-4xl    /* 40px */
+--font-size-5xl    /* 48px */
+
+/* Font weights */
+--font-weight-regular    /* 400 */
+--font-weight-medium     /* 500 */
+--font-weight-semibold   /* 600 */
+--font-weight-bold       /* 700 */
+
+/* Line heights */
+--line-height-tight      /* 1.3 */
+--line-height-normal     /* 1.4 */
+--line-height-relaxed    /* 1.5 */
+--line-height-loose      /* 1.6 */
+--line-height-xs         /* 16px */
+--line-height-sm         /* 20px */
+--line-height-md         /* 24px */
+--line-height-lg         /* 28px */
+
+/* Letter spacing */
+--letter-spacing-tighter /* -0.02em */
+--letter-spacing-tight   /* -0.01em */
+--letter-spacing-normal  /* 0 */
+--letter-spacing-wide    /* 0.01em */
+--letter-spacing-wider   /* 0.02em */
+```
+
+#### Spacing
+```css
+/* Numeric scale (4px base) */
+--spacing-1     /* 4px */
+--spacing-2     /* 8px */
+--spacing-3     /* 12px */
+--spacing-4     /* 16px */
+--spacing-5     /* 20px */
+--spacing-6     /* 24px */
+--spacing-7     /* 28px */
+--spacing-8     /* 32px */
+--spacing-9     /* 36px */
+--spacing-10    /* 40px */
+--spacing-11    /* 44px */
+--spacing-12    /* 48px */
+--spacing-13    /* 52px */
+--spacing-14    /* 56px */
+--spacing-15    /* 60px */
+--spacing-16    /* 64px */
+--spacing-20    /* 80px */
+--spacing-24    /* 96px */
+--spacing-32    /* 128px */
+
+/* Semantic names */
+--spacing-xs    /* 4px */
+--spacing-sm    /* 8px */
+--spacing-md    /* 16px */
+--spacing-lg    /* 24px */
+--spacing-xl    /* 32px */
+--spacing-2xl   /* 48px */
+--spacing-3xl   /* 64px */
+```
+
+#### Shadows
+```css
+--shadow-none
+--shadow-sm        /* Subtle elevation */
+--shadow-md        /* Standard elevation */
+--shadow-lg        /* Strong elevation */
+--shadow-xl        /* Extra large */
+--shadow-2xl       /* Modals/popovers */
+
+--shadow-inner-sm
+--shadow-inner-md
+
+--shadow-focus         /* Blue focus ring */
+--shadow-focus-error   /* Red focus ring */
+--shadow-focus-success /* Green focus ring */
+```
+
+#### Borders
+```css
+/* Widths */
+--border-width-none
+--border-width-thin     /* 1px */
+--border-width-medium   /* 2px */
+--border-width-thick    /* 4px */
+
+/* Radius */
+--border-radius-none
+--border-radius-xs      /* 5px */
+--border-radius-sm      /* 8px */
+--border-radius-md      /* 12px */
+--border-radius-lg      /* 20px */
+--border-radius-xl      /* 24px */
+--border-radius-2xl     /* 32px */
+--border-radius-pill    /* 9999px */
+--border-radius-full    /* 9999px */
+```
+
+#### Transitions
+```css
+--transition-fast       /* 150ms ease */
+--transition-base       /* 200ms ease */
+--transition-slow       /* 300ms ease */
+
+--transition-timing-ease
+--transition-timing-ease-in
+--transition-timing-ease-out
+--transition-timing-ease-in-out
+```
+
+#### Z-Index
+```css
+--z-index-base            /* 0 */
+--z-index-dropdown        /* 1000 */
+--z-index-sticky          /* 1020 */
+--z-index-fixed           /* 1030 */
+--z-index-modal-backdrop  /* 1040 */
+--z-index-modal           /* 1050 */
+--z-index-popover         /* 1060 */
+--z-index-tooltip         /* 1070 */
+```
+
+---
+
+## 📝 Naming Conventions
+
+### Files and Directories
+```
+✅ CORRECT:
+ComponentName/          # PascalCase for component directories
+ComponentName.tsx       # PascalCase for component files
+ComponentName.module.css
+ComponentName.types.ts
+index.ts
+utils.ts               # camelCase for utility files
+constants.ts
+
+❌ WRONG:
+component-name/
+componentName.tsx
+component_name.tsx
+COMPONENT_NAME.tsx
+```
+
+### TypeScript/JavaScript
+```typescript
+// ✅ CORRECT
+export interface ButtonProps { }        // PascalCase for interfaces
+export type ButtonVariant = ...        // PascalCase for types
+export const BUTTON_SIZES = ...        // SCREAMING_SNAKE_CASE for constants
+export function handleClick() { }      // camelCase for functions
+const isDisabled = true;               // camelCase for variables
+const buttonRef = useRef<HTMLButtonElement>(null);
+
+// ❌ WRONG
+export interface buttonprops { }
+export type button_variant = ...
+export const ButtonSizes = ...
+export function HandleClick() { }
+const is_disabled = true;
+```
+
+### CSS Classes
+```css
+/* ✅ CORRECT - Semantic, camelCase */
+.container { }
+.heading { }
+.primaryButton { }
+.isActive { }
+.hasError { }
+
+/* ❌ WRONG - Non-semantic, utilities */
+.blue { }
+.mt-4 { }
+.flex { }
+.w-full { }
+```
+
+---
+
+## 🎨 CSS Modules Standards
+
+### Structure
+  ```css
+/**
+ * Component: ComponentName
+ * Description: Brief component description
+ */
+
+/* ===== BASE STYLES ===== */
+.container {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  
+  /* Spacing */
+  padding: var(--spacing-lg);
+  margin: 0;
+  
+  /* Colors */
+  background-color: var(--color-surface-primary);
+  color: var(--color-text-primary);
+  
+  /* Typography */
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-md);
+  
+  /* Borders */
+  border: var(--border-width-thin) solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  
+  /* Effects */
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-base);
+}
+
+/* ===== VARIANTS ===== */
+.primary { }
+.secondary { }
+
+/* ===== STATES ===== */
+.container:hover { }
+.container:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+.container:active { }
+.container:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.isActive { }
+.isDisabled { }
+.isLoading { }
+
+/* ===== SIZES ===== */
+.small { }
+.medium { }
+.large { }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: var(--spacing-sm);
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  .container {
+    transition: none;
+  }
+}
+
+/* ===== DARK MODE ===== */
+[data-theme="dark"] .container {
+  /* Dark mode specific overrides */
+}
+```
+
+### CSS Best Practices
+1. **Order properties logically**: Layout → Spacing → Colors → Typography → Borders → Effects
+2. **Use comments to organize**: Separate sections with clear headers
+3. **Keep selectors flat**: Avoid deep nesting (max 2 levels)
+4. **Mobile-first**: Base styles for mobile, media queries for larger screens
+5. **Semantic class names**: Describe purpose, not appearance
+6. **BEM-like modifiers**: Use state classes like `.isActive`, `.hasError`
+
+---
+
+## 📐 TypeScript Standards
+
+### Type Definitions (ComponentName.types.ts)
+  ```typescript
+/**
+ * Props for the ComponentName component
+ * 
+ * Used for rendering [brief description of component purpose].
+ */
+export interface ComponentNameProps {
+  /**
+   * Brief description of the prop
+   * @example 'primary'
+   */
+  variant?: 'primary' | 'secondary' | 'tertiary';
+  
+  /**
+   * Size of the component
+   * @default 'medium'
+   */
+    size?: 'small' | 'medium' | 'large';
+  
+  /**
+   * Whether the component is disabled
+   * @default false
+   */
+    isDisabled?: boolean;
+  
+  /**
+   * Click handler
+   */
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  
+  /**
+   * Child elements to render
+   */
+    children: React.ReactNode;
+  
+  /**
+   * Additional CSS class name
+   */
+  className?: string;
+}
+
+/**
+ * Internal state interface (if needed)
+ */
+interface ComponentState {
+  isOpen: boolean;
+  activeIndex: number;
+}
+
+/**
+ * Export all public types
+ */
+export type ComponentVariant = ComponentNameProps['variant'];
+export type ComponentSize = ComponentNameProps['size'];
+```
+
+### Component Implementation (ComponentName.tsx)
+```typescript
+'use client'; // Only if component uses hooks/state
+
+import { forwardRef, useState, useCallback } from 'react';
+import type { ComponentNameProps } from './ComponentName.types';
+import styles from './ComponentName.module.css';
+
+/**
+ * ComponentName - Brief description of what this component does
+ * 
+ * Longer description explaining the purpose, usage, and any important
+ * implementation details that developers should know.
+ * 
+ * Features:
+ * - Feature 1
+ * - Feature 2
+ * - Feature 3
+ * 
+ * @example
+ * ```tsx
+ * <ComponentName 
+ *   variant="primary" 
+ *   size="large"
+ *   onClick={handleClick}
+ * >
+ *   Click me
+ * </ComponentName>
+ * ```
+ */
+export const ComponentName = forwardRef<HTMLDivElement, ComponentNameProps>(
+  (
+    {
+      variant = 'primary',
+      size = 'medium',
+      isDisabled = false,
+      onClick,
+      children,
+      className = '',
+      ...restProps
+    },
+    ref
+  ) => {
+    // State
+    const [isActive, setIsActive] = useState(false);
+    
+    // Event handlers
+    const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>): void => {
+      if (isDisabled) {
+        event.preventDefault();
+        return;
+      }
+      onClick?.(event);
+    }, [isDisabled, onClick]);
+    
+    // Build class names
+    const classNames = [
+      styles.container,
+      styles[variant],
+      styles[size],
+      isActive && styles.isActive,
+      isDisabled && styles.isDisabled,
+      className,
+    ]
+      .filter(Boolean)
+      .join(' ');
+    
+    // Render
+    return (
+      <div 
+        ref={ref}
+        className={classNames}
+        onClick={handleClick}
+        aria-disabled={isDisabled}
+        {...restProps}
+      >
+        {children}
+      </div>
+    );
+  }
+);
+
+ComponentName.displayName = 'ComponentName';
+```
+
+### Barrel Export (index.ts)
+```typescript
+export { ComponentName } from './ComponentName';
+export type { 
+  ComponentNameProps, 
+  ComponentVariant, 
+  ComponentSize 
+} from './ComponentName.types';
+```
+
+### TypeScript Rules
+1. **Strict mode**: Always enabled, no exceptions
+2. **Explicit return types**: Required for all exported functions
+3. **No `any` type**: Use `unknown` if type is truly unknown, document with comment why
+4. **Interface for props**: Use `interface` for component props, `type` for unions/intersections
+5. **JSDoc comments**: Required for all public APIs, props, and complex logic
+6. **Optional chaining**: Use `?.` for optional props/methods
+7. **Type guards**: Use type guards for runtime type checking
+8. **Enums**: Prefer union types over enums (e.g., `'primary' | 'secondary'`)
+
+---
+
+## ♿ Accessibility Requirements
+
+### Minimum Standard
+**WCAG 2.1 Level AA compliance is MANDATORY**
+
+### Semantic HTML
+```tsx
+// ✅ CORRECT - Semantic HTML
+<button onClick={handleClick}>Click me</button>
+<nav>
+  <ul>
+    <li><a href="/home">Home</a></li>
+  </ul>
+</nav>
+<main>
+  <article>
+    <h1>Title</h1>
+    <p>Content</p>
+  </article>
+</main>
+
+// ❌ WRONG - Divs for everything
+<div onClick={handleClick}>Click me</div>
+<div className="nav">
+  <div className="link">Home</div>
+</div>
+```
+
+### ARIA Attributes
+```tsx
+// Use ARIA when semantic HTML is insufficient
+<button
+  aria-label="Close dialog"
+  aria-pressed={isPressed}
+  aria-disabled={isDisabled}
+  onClick={handleClose}
+>
+  <CloseIcon />
+</button>
+
+// Screen reader only text
+<span className="sr-only">
+  Loading, please wait...
+</span>
+
+// Live regions for dynamic content
+<div 
+  role="status" 
+  aria-live="polite"
+  aria-atomic="true"
+>
+  {statusMessage}
+</div>
+```
+
+### Keyboard Navigation
+```tsx
+// All interactive elements must be keyboard accessible
+<div
+  role="button"
+  tabIndex={0}
+  onClick={handleClick}
+  onKeyDown={(e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleClick();
+    }
+  }}
+>
+  Custom button
+</div>
+```
+
+### Focus Management
+```css
+/* Always provide visible focus indicators */
+.button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  /* Don't use outline: none without replacement */
+}
+
+/* Skip focus styles on mouse/touch */
+.button:focus:not(:focus-visible) {
+  outline: none;
+}
+```
+
+### Color Contrast
+- **Normal text**: Minimum 4.5:1 contrast ratio
+- **Large text**: Minimum 3:1 contrast ratio
+- **UI components**: Minimum 3:1 contrast ratio
+- Test both light and dark themes
+
+### Screen Reader Support
+```tsx
+// Descriptive labels
+<img src="avatar.jpg" alt="John Doe's profile picture" />
+
+// Form labels
+<label htmlFor="email">
+  Email address
+  <input id="email" type="email" required />
+</label>
+
+// Icon-only buttons
+<button aria-label="Delete item">
+  <TrashIcon aria-hidden="true" />
+</button>
+```
+
+---
+
+## 📱 Responsive Design
+
+### Breakpoints
+```typescript
+// Available in tokens/breakpoints.ts
+export const breakpoints = {
+  sm: 640,   // Mobile: 0-639px
+  md: 768,   // Tablet: 640-1023px
+  lg: 1024,  // Desktop: 1024-1279px
+  xl: 1280,  // Large desktop: 1280-1535px
+  '2xl': 1536 // Extra large: 1536px+
+};
+```
+
+### Mobile-First Approach
+```css
+/* ✅ CORRECT - Mobile first */
+.container {
+  padding: var(--spacing-sm); /* Mobile */
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: var(--spacing-md); /* Tablet */
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: var(--spacing-lg); /* Desktop */
+  }
+}
+
+/* ❌ WRONG - Desktop first */
+.container {
+  padding: var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-sm);
+  }
+}
+```
+
+### Responsive Patterns
+```css
+/* Fluid typography */
+.heading {
+  font-size: clamp(
+    var(--font-size-xl),
+    5vw,
+    var(--font-size-4xl)
+  );
+}
+
+/* Responsive grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-md);
+}
+
+/* Container queries (when available) */
+@container (min-width: 400px) {
+  .card {
+    flex-direction: row;
+  }
+}
+```
+
+---
+
+## 🌓 Theme System
+
+### Theme Usage
+```tsx
+'use client';
+
+import { useTheme } from '@design-system/theme/useTheme';
+
+export function MyComponent() {
+  const { theme, resolvedTheme, setTheme, toggleTheme } = useTheme();
+  
+  return (
+    <button onClick={toggleTheme}>
+      Current theme: {resolvedTheme}
+    </button>
+  );
+}
+```
+
+### Theme-Aware Styles
+```css
+/* Prefer CSS variables for automatic switching */
+.container {
+  background: var(--color-background);
+  color: var(--color-text-primary);
+}
+
+/* Dark mode specific overrides when needed */
+[data-theme="dark"] .container {
+  box-shadow: var(--shadow-xl);
+}
+```
+
+### Theme Types
+- **`'light'`**: Light mode
+- **`'dark'`**: Dark mode
+- **`'system'`**: Follow OS preference (default)
+
+---
+
+## 🚀 Performance Optimization
+
+### React Optimization
+```tsx
+// Use React.memo for expensive components
+export const ExpensiveComponent = memo(({ data }) => {
+  return <div>{/* complex rendering */}</div>;
+});
+
+// useCallback for stable function references
+const handleClick = useCallback(() => {
+  // handler logic
+}, [dependencies]);
+
+// useMemo for expensive computations
+const sortedData = useMemo(() => {
+  return data.sort((a, b) => a.value - b.value);
+}, [data]);
+
+// Lazy load heavy components
+const HeavyComponent = lazy(() => import('./HeavyComponent'));
+```
+
+### Bundle Size
+- Keep component files under 300 lines
+- Split large components into smaller ones
+- Use dynamic imports for route-based splitting
+- Avoid importing entire libraries (import specific functions)
+
+### Image Optimization
+```tsx
+// Use Next.js Image component
+import Image from 'next/image';
+
+<Image 
+  src="/image.jpg"
+  alt="Description"
+  width={500}
+  height={300}
+  loading="lazy"
+  placeholder="blur"
+/>
+```
+
+---
+
+## 📦 Import Patterns
+
+### Path Aliases (tsconfig.json)
+```typescript
+// ✅ CORRECT - Use path aliases
+import { Button } from '@components/buttons/Button';
+import { useTheme } from '@design-system/theme/useTheme';
+import { colors } from '@design-system/tokens/colors';
+import { formatDate } from '@/lib/utils';
+
+// ❌ WRONG - Relative paths
+import { Button } from '../../../design-system/components/buttons/Button';
+```
+
+### Import Order
+```typescript
+// 1. React and Next.js
+import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+
+// 2. External libraries
+import classNames from 'classnames';
+
+// 3. Internal - Design system
+import { Button } from '@components/buttons/Button';
+import { Heading } from '@components/typography/Heading';
+
+// 4. Internal - Utilities
+import { formatDate } from '@/lib/utils';
+import { API_ENDPOINTS } from '@/lib/constants';
+
+// 5. Types
+import type { ButtonProps } from '@components/buttons/Button';
+import type { User } from '@/types';
+
+// 6. Styles (always last)
+import styles from './ComponentName.module.css';
+```
+
+---
+
+## 🧪 Testing Approach
+
+### Testing Principles
+1. **Test behavior, not implementation**: Focus on what users see and do
+2. **User-centric**: Test from user's perspective
+3. **Accessibility**: Test keyboard navigation, screen reader support
+4. **Avoid brittle tests**: Don't rely on class names or internal structure
+
+### What to Test
+```typescript
+// ✅ Test user interactions
+test('submits form when button is clicked', () => {
+  render(<MyForm />);
+  const button = screen.getByRole('button', { name: /submit/i });
+  fireEvent.click(button);
+  expect(mockSubmit).toHaveBeenCalled();
+});
+
+// ✅ Test accessibility
+test('has proper ARIA labels', () => {
+  render(<CloseButton />);
+  const button = screen.getByLabelText(/close/i);
+  expect(button).toBeInTheDocument();
+});
+
+// ❌ Don't test implementation details
+test('has correct class name', () => {
+  render(<Button />);
+  expect(button).toHaveClass('button');
+});
+```
+
+---
+
+## 📝 Documentation Standards
+
+### Component Documentation
+Every component MUST have:
+
+1. **JSDoc comment** with description and example
+2. **README.md** in component category directory
+3. **Inline comments** for complex logic
+4. **Props documentation** in TypeScript interface
+5. **Usage examples** in component JSDoc
+
+### JSDoc Format
+  ```typescript
+  /**
+ * ComponentName - One-line description
+ * 
+ * Longer description explaining purpose, use cases, and behavior.
+ * Can span multiple lines.
+ * 
+ * Features:
+ * - Feature 1
+ * - Feature 2
+ * 
+ * @example
+ * ```tsx
+ * <ComponentName variant="primary" size="large">
+ *   Example usage
+ * </ComponentName>
+ * ```
+ * 
+   * @example
+ * ```tsx
+ * // Another example
+ * <ComponentName 
+ *   variant="secondary"
+ *   isDisabled
+ *   onClick={handleClick}
+ * >
+ *   Disabled button
+ * </ComponentName>
+ * ```
+   */
+  ```
+
+---
+
+## 🔧 Development Workflow
+
+### Component Creation Checklist
+```
+□ Create directory: ComponentName/
+□ Create ComponentName.types.ts
+  □ Define Props interface with JSDoc
+  □ Export all public types
+□ Create ComponentName.tsx
+  □ Add JSDoc with description and examples
+  □ Implement component logic
+  □ Use forwardRef if DOM ref needed
+  □ Set displayName
+□ Create ComponentName.module.css
+  □ Use design tokens exclusively
+  □ Include all states (hover, focus, active, disabled)
+  □ Add responsive styles
+  □ Add dark mode overrides if needed
+  □ Include accessibility features
+□ Create index.ts
+  □ Export component
+  □ Export types
+□ Test component
+  □ TypeScript compiles without errors
+  □ No linter warnings
+  □ Works in light and dark modes
+  □ Keyboard accessible
+  □ Screen reader friendly
+  □ Responsive on all screen sizes
+□ Update category index.ts to export new component
+□ Add demo page (optional but recommended)
+```
+
+### Commands
+```bash
+# Development
+npm run dev              # Start dev server
+npm run build            # Production build
+npm start                # Run production build
+npm run lint             # Check code quality
+npm run type-check       # Verify TypeScript
+```
+
+---
+
+## 🚫 Common Mistakes to Avoid
+
+### 1. Hardcoding Values
+```css
+/* ❌ WRONG */
+.button {
+  padding: 16px;
+  color: #0066cc;
+  font-size: 14px;
+}
+
+/* ✅ CORRECT */
+.button {
+  padding: var(--spacing-md);
+  color: var(--color-primary);
+  font-size: var(--font-size-sm);
+}
+```
+
+### 2. Using `any` Type
+```typescript
+// ❌ WRONG
+const handleData = (data: any) => { }
+
+// ✅ CORRECT
+const handleData = (data: UserData) => { }
+
+// ✅ ACCEPTABLE (with comment explaining why)
+const handleData = (data: unknown) => {
+  // Using unknown because this data comes from external API
+  // and needs runtime validation
+  if (isValidUserData(data)) {
+    // Now TypeScript knows it's UserData
+  }
+}
+```
+
+### 3. Missing Accessibility
+```tsx
+// ❌ WRONG - Div with click handler
+<div onClick={handleClick}>Click me</div>
+
+// ✅ CORRECT - Semantic button
+<button onClick={handleClick}>Click me</button>
+
+// ❌ WRONG - Icon-only without label
+<button onClick={handleClose}>
+  <CloseIcon />
+</button>
+
+// ✅ CORRECT - Icon with label
+<button aria-label="Close dialog" onClick={handleClose}>
+  <CloseIcon aria-hidden="true" />
+</button>
+```
+
+### 4. Non-Semantic Class Names
+```css
+/* ❌ WRONG - Utility/appearance names */
+.blue { }
+.mt-4 { }
+.flex { }
+
+/* ✅ CORRECT - Semantic names */
+.primaryAction { }
+.headerContainer { }
+.navigationList { }
+```
+
+### 5. Deep Nesting
+```css
+/* ❌ WRONG - Deep nesting */
+.container .header .nav .item .link {
+  color: blue;
+}
+
+/* ✅ CORRECT - Flat structure */
+.navLink {
+  color: var(--color-primary);
+}
+```
+
+### 6. Inconsistent Structure
+```
+❌ WRONG:
+Button/
+  ├── button.tsx
+  ├── styles.module.css
+  └── types.ts
+
+✅ CORRECT:
+Button/
+  ├── Button.tsx
+  ├── Button.module.css
+  ├── Button.types.ts
+  └── index.ts
+```
+
+---
+
+## 🎯 Quality Standards
+
+### Before Committing
+Every commit must:
+- [ ] TypeScript compiles without errors (`npm run type-check`)
+- [ ] No ESLint warnings (`npm run lint`)
+- [ ] All files follow naming conventions
+- [ ] All components use design tokens
+- [ ] Accessibility requirements met
+- [ ] Responsive on mobile, tablet, desktop
+- [ ] Works in light and dark themes
+- [ ] JSDoc comments added
+- [ ] No console.log statements (unless intentional logging)
+
+### Code Review Checklist
+- [ ] Follows 4-file component structure
+- [ ] Uses design tokens (no hardcoded values)
+- [ ] TypeScript strict mode compliant
+- [ ] Proper accessibility (WCAG 2.1 AA)
+- [ ] Responsive design implemented
+- [ ] Dark mode supported
+- [ ] Performance optimized
+- [ ] Documentation complete
+- [ ] No security vulnerabilities
+- [ ] Tests passing (when tests exist)
+
+---
+
+## 📚 Additional Resources
+
+### Documentation Files
+- **README.md**: Project overview and quick start
+- **docs/GETTING-STARTED.md**: Complete setup walkthrough
+- **docs/COMPONENT-TEMPLATE.md**: Detailed component creation guide
+- **QUICK-REFERENCE.md**: Essential commands and patterns
+- **DEPLOYMENT.md**: Production deployment guide
+
+### Token Files
+- **tokens/colors.ts**: Color system
+- **tokens/typography.ts**: Typography tokens
+- **tokens/spacing.ts**: Spacing scale
+- **tokens/shadows.ts**: Shadow system
+- **tokens/borders.ts**: Border tokens
+- **tokens/breakpoints.ts**: Responsive breakpoints
+- **theme/tokens.css**: All tokens as CSS variables
+
+### Example Components
+Study these for reference implementations:
+- **Button**: Full-featured button with all variants
+- **Heading**: Typography component with polymorphism
+- **Logo**: Branding component
+- **ThemeToggle**: Theme switching
+- **Header/Sidebar**: Complex layout components
+- **ChatWindow**: Feature-rich chat interface
+- **ContentEditor**: Rich text editor integration
+
+---
+
+## 🎨 Design System Philosophy
+
+### Principles
+1. **Consistency First**: Every component should feel part of the same system
+2. **Token-Driven**: Design decisions encoded as reusable tokens
+3. **Accessibility Always**: WCAG compliance is not optional
+4. **Performance Matters**: Fast load times and smooth interactions
+5. **Type Safety**: Catch errors at compile time, not runtime
+6. **Developer Experience**: Easy to use, hard to misuse
+7. **Documentation**: Code should be self-documenting with good comments
+
+### Component Maturity Levels
+- **Draft**: Basic functionality, may change
+- **Beta**: Feature complete, API may change
+- **Stable**: Production ready, API locked
+- **Deprecated**: Scheduled for removal
+
+Mark component maturity in JSDoc:
+```typescript
+/**
+ * ComponentName - Description
+ * 
+ * @status stable
+ * @since 1.0.0
+ */
+```
+
+---
+
+## 🔄 Git Commit Standards
+
+### Commit Message Format
+```
+type(scope): Brief description
+
+Longer description if needed.
+
+- Detail 1
+- Detail 2
+
+BREAKING CHANGE: Description of breaking change if applicable
+```
+
+### Commit Types
+- **feat**: New feature
+- **fix**: Bug fix
+- **docs**: Documentation changes
+- **style**: Code style changes (formatting, no logic change)
+- **refactor**: Code refactoring
+- **perf**: Performance improvements
+- **test**: Adding or updating tests
+- **chore**: Maintenance tasks
+
+### Examples
+```
+feat(buttons): Add icon-only variant to Button component
+
+Added support for rendering icon-only buttons with circular shape.
+
+- Added iconOnly prop to ButtonProps
+- Updated styles for circular buttons
+- Added accessibility labels for icon buttons
+
+fix(theme): Fix theme toggle not persisting to localStorage
+
+The theme preference was not being saved correctly due to timing issue.
+
+refactor(typography): Simplify Heading component implementation
+
+docs(tokens): Update color token documentation
+```
+
+---
+
+## 🚀 Advanced Patterns
+
+### Compound Components
+```typescript
+export const Card = ({ children }: CardProps) => {
+  return <div className={styles.card}>{children}</div>;
+};
+
+Card.Header = ({ children }: CardHeaderProps) => {
+  return <div className={styles.header}>{children}</div>;
+};
+
+Card.Body = ({ children }: CardBodyProps) => {
+  return <div className={styles.body}>{children}</div>;
+};
+
+Card.Footer = ({ children }: CardFooterProps) => {
+  return <div className={styles.footer}>{children}</div>;
+};
+
+// Usage
+<Card>
+  <Card.Header>Title</Card.Header>
+  <Card.Body>Content</Card.Body>
+  <Card.Footer>Actions</Card.Footer>
+</Card>
+```
+
+### Polymorphic Components
+```typescript
+type PolymorphicProps<E extends React.ElementType> = {
+  as?: E;
+} & Omit<React.ComponentPropsWithoutRef<E>, 'as'>;
+
+export const Text = <E extends React.ElementType = 'span'>({
+  as,
+  children,
+  ...props
+}: PolymorphicProps<E>) => {
+  const Component = as || 'span';
+  return <Component {...props}>{children}</Component>;
+};
+
+// Usage
+<Text as="p">Paragraph</Text>
+<Text as="label">Label</Text>
+```
+
+### Render Props
+```typescript
+interface RenderProps {
+  isOpen: boolean;
+  toggle: () => void;
+}
+
+interface ToggleProps {
+  children: (props: RenderProps) => React.ReactNode;
+}
+
+export const Toggle = ({ children }: ToggleProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
+  
+  return <>{children({ isOpen, toggle })}</>;
+};
+
+// Usage
+<Toggle>
+  {({ isOpen, toggle }) => (
+    <div>
+      <button onClick={toggle}>Toggle</button>
+      {isOpen && <div>Content</div>}
+    </div>
+  )}
+</Toggle>
+```
+
+---
+
+## 🎓 Training Resources
+
+### Next.js
+- [Official Documentation](https://nextjs.org/docs)
+- [App Router Guide](https://nextjs.org/docs/app)
+
+### TypeScript
+- [Handbook](https://www.typescriptlang.org/docs/)
+- [React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/)
+
+### Accessibility
+- [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+- [A11y Project](https://www.a11yproject.com/)
+- [MDN Accessibility](https://developer.mozilla.org/en-US/docs/Web/Accessibility)
+
+### CSS
+- [CSS Modules Documentation](https://github.com/css-modules/css-modules)
+- [MDN CSS Reference](https://developer.mozilla.org/en-US/docs/Web/CSS)
+
+---
+
+## 💡 Pro Tips
+
+1. **Use TypeScript autocomplete**: Press Ctrl+Space for suggestions
+2. **Inspect with React DevTools**: Debug component hierarchy and props
+3. **Test in multiple browsers**: Chrome, Firefox, Safari, Edge
+4. **Use dark mode while developing**: Catches contrast issues early
+5. **Check accessibility**: Use screen reader and keyboard navigation
+6. **Validate HTML**: Use browser dev tools
+7. **Monitor bundle size**: Keep components small and focused
+8. **Read existing components**: Learn from well-implemented examples
+9. **Ask questions**: Better to clarify than implement incorrectly
+10. **Update documentation**: Keep docs in sync with code
+
+---
+
+## ⚠️ Critical Rules Summary
+
+1. **ALWAYS follow 4-file component structure**
+2. **NEVER hardcode values - use tokens**
+3. **ALWAYS use TypeScript strict mode**
+4. **NEVER use `any` type without documented reason**
+5. **ALWAYS make components accessible (WCAG 2.1 AA)**
+6. **ALWAYS use semantic HTML**
+7. **ALWAYS add JSDoc comments**
+8. **ALWAYS test responsive design**
+9. **ALWAYS support dark mode**
+10. **NEVER commit without linting and type checking**
+
+---
+
+## 📞 Support
+
+Questions about these guidelines?
+- Check the documentation in `docs/`
+- Review example components
+- Read component READMEs
+- Ask your team lead
+
+Remember: **Consistency is more important than personal preference.** Follow these guidelines even if you would do something differently.
+
+---
+
+**Last Updated**: January 2026  
+**Version**: 2.0.0  
+**Maintained by**: Studocu AI Team

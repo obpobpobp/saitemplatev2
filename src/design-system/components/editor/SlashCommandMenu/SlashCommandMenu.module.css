@@ -1,0 +1,137 @@
+.menu {
+  position: absolute;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 200px;
+  max-height: 300px;
+  padding: var(--spacing-sm) 0;
+  background-color: var(--color-surface-primary);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow-y: auto;
+  overflow-x: hidden;
+  pointer-events: auto;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  height: 40px;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-md);
+  color: var(--color-text-subtle);
+}
+
+.item:hover {
+  background-color: var(--color-surface-secondary);
+}
+
+.item.selected {
+  background-color: var(--color-surface-secondary);
+  color: var(--color-text);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.iconGlyph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  font-family: 'Font Awesome 6 Duotone', sans-serif;
+  font-weight: 900;
+  line-height: 0;
+  font-style: normal;
+  color: currentColor;
+}
+
+/* Font Awesome icon mapping */
+.iconGlyph[data-icon="paragraph"]::before {
+  content: "\f1dd"; /* paragraph */
+}
+
+.iconGlyph[data-icon="h1"]::before {
+  content: "H1";
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: 14px;
+}
+
+.iconGlyph[data-icon="h2"]::before {
+  content: "H2";
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: 14px;
+}
+
+.iconGlyph[data-icon="h3"]::before {
+  content: "H3";
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: 14px;
+}
+
+.iconGlyph[data-icon="list"]::before {
+  content: "\f03a"; /* list */
+}
+
+.iconGlyph[data-icon="table"]::before {
+  content: "\f0ce"; /* table */
+}
+
+.title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Scrollbar styling */
+.menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.menu::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--border-radius-pill);
+}
+
+.menu::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-strong);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .item {
+    transition: none;
+  }
+}
+
+
+
+
+
+
+

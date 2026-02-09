@@ -1,0 +1,137 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: transparent;
+  transition: width 0.3s ease;
+  position: relative;
+  padding: 0; /* Figma: no padding on sidebar itself */
+}
+
+.sidebar.open {
+  width: var(--sidebar-width, 400px);
+}
+
+.sidebar.closed {
+  width: var(--sidebar-collapsed-width, 72px); /* Figma exact: 20px padding + 32px icon + 20px padding */
+}
+
+.sidebar.left {
+  /* No border - clean separation */
+}
+
+.sidebar.right {
+  /* No border - clean separation */
+}
+
+/* Content area - panels container */
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px; /* Figma exact: gap between panels */
+  padding: 0; /* NO padding - panels handle their own spacing */
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+}
+
+/* Scrollbar styling */
+.content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--border-radius-pill);
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-strong);
+}
+
+/* Responsive - maintain Figma fidelity */
+@media (max-width: 1024px) {
+  .sidebar.open {
+    width: 320px;
+  }
+  
+  /* CRITICAL: Maintain 8px gap at all viewport sizes */
+  .content {
+    gap: 8px; /* Figma exact - DO NOT reduce */
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .sidebar.left {
+    left: 0;
+  }
+  
+  .sidebar.right {
+    right: 0;
+  }
+  
+  .sidebar.closed {
+    transform: translateX(-100%);
+  }
+  
+  .sidebar.right.closed {
+    transform: translateX(100%);
+  }
+  
+  .sidebar.open {
+    width: 85vw;
+    max-width: 400px;
+  }
+  
+  /* CRITICAL: Maintain Figma spacing on mobile */
+  .content {
+    padding: 20px; /* Figma exact */
+    gap: 8px; /* Figma exact - DO NOT reduce */
+  }
+}
+
+/* Mobile overlay */
+@media (max-width: 768px) {
+  .sidebar.open::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    animation: fadeIn 0.3s ease;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .sidebar,
+  .toggleButton,
+  .toggleIcon {
+    transition: none;
+  }
+}

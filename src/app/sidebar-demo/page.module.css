@@ -1,0 +1,136 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f5f7fa;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  background-color: white;
+  border-bottom: 1px solid #d3d9e0;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #2f3e4e;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.controlButton {
+  padding: 8px 16px;
+  background-color: #3092fa;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.controlButton:hover {
+  background-color: #2077d9;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  background-color: #f5f7fa;
+}
+
+.stateInfo {
+  background-color: white;
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.stateInfo h2 {
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #2f3e4e;
+}
+
+.stateGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stateItem {
+  padding: 12px;
+  background-color: #f6f7fb;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #4c5966;
+}
+
+.stateItem strong {
+  color: #2f3e4e;
+  font-weight: 600;
+}
+
+.figmaChecklist {
+  background-color: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.figmaChecklist h2 {
+  margin: 0 0 24px 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #2f3e4e;
+}
+
+.checklistSection {
+  margin-bottom: 24px;
+}
+
+.checklistSection:last-child {
+  margin-bottom: 0;
+}
+
+.checklistSection h3 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2f3e4e;
+}
+
+.checklistSection ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.checklistSection li {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #4c5966;
+  line-height: 1.5;
+}
+
+
+
+

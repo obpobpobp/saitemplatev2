@@ -1,0 +1,119 @@
+.container {
+  position: relative;
+  width: 100%;
+  background-color: var(--color-surface-secondary);
+  border: 2px dashed var(--color-border-default);
+  border-bottom: none;
+  border-top-left-radius: var(--border-radius-lg);
+  border-top-right-radius: var(--border-radius-lg);
+  transition: border-color var(--transition-fast);
+}
+
+.container.dragging {
+  border-color: var(--color-interactive-link);
+  background-color: rgba(48, 146, 250, 0.05);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-3) var(--spacing-6);
+  overflow: hidden;
+  border-radius: inherit;
+  width: 100%;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-1);
+  text-align: center;
+}
+
+.emptyState i {
+  font-size: 48px;
+  color: var(--color-text-strong);
+  margin-bottom: var(--spacing-1);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 36px;
+  color: var(--color-text);
+}
+
+.description {
+  margin: 0;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-sm);
+  color: var(--color-text-tertiary);
+}
+
+.chooseButton {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-sm);
+  color: var(--color-interactive-link);
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+
+.chooseButton:hover {
+  opacity: 0.8;
+}
+
+.chooseButton:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.filesGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+  width: 100%;
+  align-items: flex-start;
+}
+
+.hiddenInput {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Mobile styles */
+@media (max-width: 767px) {
+  .mobile .title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .mobile .description {
+    font-size: var(--font-size-sm);
+  }
+
+  .filesGrid {
+    gap: var(--spacing-2);
+  }
+}
+
+
+
+
+

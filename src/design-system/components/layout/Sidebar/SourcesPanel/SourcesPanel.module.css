@@ -1,0 +1,32 @@
+/* SourcesPanel specific styles */
+
+/* Filter button group wrapper */
+.filterButtonGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Footer buttons container - Add and Record buttons */
+.footerButtons {
+  display: flex;
+  gap: 8px; /* Figma exact: gap between buttons */
+  width: 100%;
+}
+
+/* Record button styling - red icon and text (Figma exact: #e62600) */
+.recordButton {
+  color: #e62600; /* Figma exact: red text and icon */
+}
+
+.recordButton i {
+  color: #e62600; /* Figma exact: ensure icon is also red */
+}
+
+.recordButton:hover {
+  color: #cc2200; /* Slightly darker on hover */
+}
+
+.recordButton:hover i {
+  color: #cc2200;
+}

@@ -1,0 +1,351 @@
+/* Base wrapper styles */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  background-color: #ffffff;
+  border: 1px solid #d3d9e0;
+  border-radius: 20px;
+  transition: all 0.15s ease;
+}
+
+/* Hover state */
+.wrapper:hover:not(.focused) {
+  border-color: #b8c5d0;
+}
+
+/* Focused/Active state */
+.wrapper.focused {
+  border-color: #3092fa;
+  box-shadow: 0 0 0 3px rgba(48, 146, 250, 0.1);
+}
+
+/* AI Tool variants - use custom placeholder instead */
+
+/* Context Tags */
+.contextTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.contextTag {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background-color: #f6f7fb;
+  border: 1px solid #d3d9e0;
+  border-radius: 100px;
+  font-family: var(--font-family-primary);
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  line-height: 20px;
+  color: var(--color-text);
+}
+
+.contextTag i {
+  font-size: 12px;
+  color: var(--color-text-subtle);
+}
+
+.removeTag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: var(--color-text-subtle);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.removeTag:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: var(--color-text);
+}
+
+.removeTag i {
+  font-size: 10px;
+}
+
+/* Input Section */
+.inputSection {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 4px;
+  min-height: 24px;
+}
+
+/* Input Wrapper for Custom Placeholder */
+.inputWrapper {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 24px;
+}
+
+/* Custom Rich Placeholder */
+.customPlaceholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  font-family: var(--font-family-primary);
+  font-size: 16px;
+  line-height: 24px;
+  color: #2f3e4e;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: text;
+}
+
+.placeholderRegular {
+  font-weight: var(--font-weight-regular);
+  color: #2f3e4e;
+}
+
+.placeholderBold {
+  font-weight: var(--font-weight-bold);
+  color: #f064fc;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-family-primary);
+  font-size: 16px;
+  font-weight: var(--font-weight-regular);
+  line-height: 24px;
+  color: #2f3e4e;
+  resize: none;
+  overflow-y: auto;
+  max-height: 120px;
+  position: relative;
+  z-index: 1;
+}
+
+.input::placeholder {
+  color: #7a838c;
+}
+
+.input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Purple text for AI tool user input */
+.wrapper.tool-quiz .input,
+.wrapper.tool-summary .input,
+.wrapper.tool-flashcards .input {
+  color: #9c27b0;
+  font-weight: var(--font-weight-medium);
+}
+
+/* Button Group */
+.buttonGroup {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.leftButtons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Button wrapper for menu positioning */
+.buttonWrapper {
+  position: relative;
+}
+
+/* Base button styles */
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex-shrink: 0;
+  height: 32px;
+  padding: 8px;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: var(--font-family-primary);
+  font-size: 14px;
+  font-weight: var(--font-weight-medium);
+  line-height: 20px;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Attach button (plus) */
+.attachButton {
+  width: 32px;
+  background-color: #ffffff;
+  border: 1px solid #d3d9e0;
+  color: var(--color-text-secondary);
+}
+
+.attachButton:hover:not(:disabled) {
+  background-color: var(--color-surface-secondary);
+  border-color: var(--color-border-interactive);
+}
+
+.attachButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.attachButton.active {
+  background-color: #e6ebef;
+  border-color: #b8c5d0;
+}
+
+/* Action buttons (Context, Create) */
+.actionButton {
+  padding: 8px 12px;
+  background-color: #f6f7fb;
+  border: 1px solid #d3d9e0;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.actionButton:hover:not(:disabled) {
+  background-color: #e6ebef;
+  border-color: #b8c5d0;
+  color: var(--color-text);
+}
+
+.actionButton span {
+  font-size: 14px;
+}
+
+.actionButton i {
+  font-size: 12px;
+}
+
+.actionButton.active {
+  background-color: #d3d9e0;
+}
+
+/* Loading dots */
+.loadingDots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: #3092fa;
+  border-radius: 50%;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes pulse {
+  0%, 80%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Spacer */
+.spacer {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Send button */
+.sendButton {
+  width: 32px;
+  background-color: #0a0a0a;
+  border: 1px solid #0a0a0a;
+  color: #ffffff;
+  transition: all 0.15s ease;
+}
+
+.sendButton:hover:not(.disabled) {
+  background-color: #2f3e4e;
+  border-color: #2f3e4e;
+  transform: scale(1.05);
+}
+
+.sendButton.disabled {
+  cursor: not-allowed;
+  background-color: #f6f7fb;
+  border-color: #e6ebef;
+  color: #d3d9e0;
+}
+
+.button i {
+  font-size: 12.8px;
+}
+
+/* Scrollbar for textarea */
+.input::-webkit-scrollbar {
+  width: 4px;
+}
+
+.input::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.input::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--border-radius-pill);
+}
+
+.input::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-strong);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .wrapper,
+  .button {
+    transition: none;
+  }
+  
+  .dot {
+    animation: none;
+  }
+}

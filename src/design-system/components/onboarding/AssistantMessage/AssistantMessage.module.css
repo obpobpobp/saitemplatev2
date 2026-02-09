@@ -1,0 +1,58 @@
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background-color: var(--color-surface-secondary);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-md);
+  color: var(--color-text);
+}
+
+/* Position-based border radius */
+.message.single {
+  border-radius: var(--border-radius-lg);
+}
+
+.message.first {
+  border-top-left-radius: var(--border-radius-lg);
+  border-top-right-radius: var(--border-radius-lg);
+  border-bottom-right: var(--border-radius-lg);
+  border-bottom-left-radius: var(--border-radius-sm);
+}
+
+.message.middle {
+  border-top-left-radius: var(--border-radius-sm);
+  border-top-right-radius: var(--border-radius-lg);
+  border-bottom-right-radius: var(--border-radius-lg);
+  border-bottom-left-radius: var(--border-radius-sm);
+}
+
+.message.last {
+  border-top-left-radius: var(--border-radius-sm);
+  border-top-right-radius: var(--border-radius-lg);
+  border-bottom-right-radius: var(--border-radius-lg);
+  border-bottom-left-radius: var(--border-radius-lg);
+}
+
+/* Text formatting */
+.message :global(strong) {
+  font-weight: var(--font-weight-bold);
+}
+
+.message :global(em) {
+  font-style: italic;
+}
+
+.message :global(p) {
+  margin: 0;
+}
+
+
+
+
+
+
+

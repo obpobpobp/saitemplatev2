@@ -1,0 +1,75 @@
+.titleWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.title {
+  font-family: var(--font-family-primary);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--color-text);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.dropdownButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 100px;
+  transition: opacity 0.2s ease;
+}
+
+.dropdownButton:hover {
+  opacity: 0.7;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.dropdownButtonActive {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dropdownButton:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.dropdownIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  font-size: 12.8px;
+  color: var(--color-text-subtle);
+  font-family: 'Font Awesome 6 Pro', sans-serif;
+  font-weight: 900;
+  line-height: 0;
+}
+
+.dropdownIcon::before {
+  content: '\f078'; /* chevron-down */
+}
+
+.dropdownButton i {
+  font-size: 12.8px;
+  color: var(--color-text-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dropdownButton {
+    transition: none;
+  }
+}
+
+

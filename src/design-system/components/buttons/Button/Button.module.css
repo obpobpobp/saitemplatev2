@@ -1,0 +1,475 @@
+/**
+ * Button Component Styles
+ * Based on Figma design specifications with exact fidelity
+ */
+
+/* ===== BASE BUTTON STYLES ===== */
+.button {
+  /* Reset */
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  box-sizing: border-box;
+  
+  /* Typography */
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+  white-space: nowrap;
+  
+  /* Transitions */
+  transition: 
+    background-color var(--transition-base),
+    border-color var(--transition-base),
+    color var(--transition-base),
+    transform var(--transition-fast),
+    box-shadow var(--transition-base);
+
+  /* Accessibility */
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+/* ===== SIZE VARIANTS ===== */
+
+/* Micro: 24px height */
+.micro {
+  height: 24px;
+  padding: 0 12px;
+  font-size: 12px;
+  line-height: 18px;
+  border-radius: 100px;
+}
+
+.micro.iconOnly {
+  width: 24px;
+  padding: 0;
+}
+
+/* Small: 32px height */
+.small {
+  height: 32px;
+  padding: 0 16px;
+  font-size: 14px;
+  line-height: 24px;
+  border-radius: 100px;
+}
+
+.small.iconOnly {
+  width: 32px;
+  padding: 0;
+}
+
+/* Medium: 40px height */
+.medium {
+  height: 40px;
+  padding: 8px 20px;
+  font-size: 16px;
+  line-height: 24px;
+  border-radius: 100px;
+}
+
+.medium.iconOnly {
+  width: 40px;
+  padding: 0;
+}
+
+/* Large: 52px height */
+.large {
+  height: 52px;
+  padding: 14px 24px;
+  font-size: 18px;
+  line-height: 24px;
+  border-radius: 100px;
+}
+
+.large.iconOnly {
+  width: 52px;
+  padding: 0;
+}
+
+/* ===== PRIMARY VARIANT ===== */
+
+/* Primary Black */
+.primaryBlack {
+  background-color: #0a0a0a;
+  color: #ffffff;
+}
+
+.primaryBlack:hover:not(:disabled) {
+  background-color: #1a1a1a;
+}
+
+.primaryBlack:active:not(:disabled) {
+  background-color: #000000;
+  transform: scale(0.98);
+}
+
+/* Primary White */
+.primaryWhite {
+  background-color: #ffffff;
+  color: #0a0a0a;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.primaryWhite:hover:not(:disabled) {
+  background-color: #f5f5f5;
+}
+
+.primaryWhite:active:not(:disabled) {
+  background-color: #e8e8e8;
+  transform: scale(0.98);
+}
+
+/* Primary Gray */
+.primaryGray {
+  background-color: #6b7280;
+  color: #ffffff;
+}
+
+.primaryGray:hover:not(:disabled) {
+  background-color: #4b5563;
+}
+
+.primaryGray:active:not(:disabled) {
+  background-color: #374151;
+  transform: scale(0.98);
+}
+
+/* Primary Blue */
+.primaryBlue {
+  background-color: #3092fa;
+  color: #ffffff;
+}
+
+.primaryBlue:hover:not(:disabled) {
+  background-color: #2077d9;
+}
+
+.primaryBlue:active:not(:disabled) {
+  background-color: #1a5fb8;
+  transform: scale(0.98);
+}
+
+/* ===== SECONDARY VARIANT ===== */
+
+/* Secondary Blue */
+.secondaryBlue {
+  background-color: #ffffff;
+  border: 1px solid #d3d9e0;
+  color: #3092fa;
+}
+
+.secondaryBlue:hover:not(:disabled) {
+  background-color: #f7f9fc;
+  border-color: #3092fa;
+}
+
+.secondaryBlue:active:not(:disabled) {
+  background-color: #e6f0ff;
+  transform: scale(0.98);
+}
+
+/* Secondary Black */
+.secondaryBlack {
+  background-color: #ffffff;
+  border: 1px solid #d3d9e0;
+  color: #0a0a0a;
+}
+
+.secondaryBlack:hover:not(:disabled) {
+  background-color: #f5f5f5;
+  border-color: #0a0a0a;
+}
+
+.secondaryBlack:active:not(:disabled) {
+  background-color: #e8e8e8;
+  transform: scale(0.98);
+}
+
+/* Secondary White */
+.secondaryWhite {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.secondaryWhite:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #ffffff;
+}
+
+.secondaryWhite:active:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(0.98);
+}
+
+/* Secondary Gray */
+.secondaryGray {
+  background-color: #ffffff;
+  border: 1px solid #d3d9e0;
+  color: #6b7280;
+}
+
+.secondaryGray:hover:not(:disabled) {
+  background-color: #f5f5f5;
+  border-color: #6b7280;
+}
+
+.secondaryGray:active:not(:disabled) {
+  background-color: #e8e8e8;
+  transform: scale(0.98);
+}
+
+/* ===== TERTIARY VARIANT ===== */
+
+/* Tertiary Blue */
+.tertiaryBlue {
+  background-color: transparent;
+  color: #3092fa;
+}
+
+.tertiaryBlue:hover:not(:disabled) {
+  background-color: rgba(48, 146, 250, 0.08);
+}
+
+.tertiaryBlue:active:not(:disabled) {
+  background-color: rgba(48, 146, 250, 0.16);
+  transform: scale(0.98);
+}
+
+/* Tertiary Black */
+.tertiaryBlack {
+  background-color: transparent;
+  color: #0a0a0a;
+}
+
+.tertiaryBlack:hover:not(:disabled) {
+  background-color: rgba(10, 10, 10, 0.08);
+}
+
+.tertiaryBlack:active:not(:disabled) {
+  background-color: rgba(10, 10, 10, 0.16);
+  transform: scale(0.98);
+}
+
+/* Tertiary White */
+.tertiaryWhite {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.tertiaryWhite:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tertiaryWhite:active:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(0.98);
+}
+
+/* Tertiary Gray */
+.tertiaryGray {
+  background-color: transparent;
+  color: #6b7280;
+}
+
+.tertiaryGray:hover:not(:disabled) {
+  background-color: rgba(107, 114, 128, 0.08);
+}
+
+.tertiaryGray:active:not(:disabled) {
+  background-color: rgba(107, 114, 128, 0.16);
+  transform: scale(0.98);
+}
+
+/* ===== PLAIN VARIANT ===== */
+
+/* Plain - No padding, bold text */
+.plain {
+  padding: 0 !important;
+  height: auto !important;
+  font-weight: var(--font-weight-bold);
+  border-radius: 0;
+}
+
+.plain.iconOnly {
+  width: auto !important;
+}
+
+/* Plain Blue */
+.plainBlue {
+  background-color: transparent;
+  color: #3092fa;
+}
+
+.plainBlue:hover:not(:disabled) {
+  color: #2077d9;
+}
+
+.plainBlue:active:not(:disabled) {
+  color: #1a5fb8;
+}
+
+/* Plain Black */
+.plainBlack {
+  background-color: transparent;
+  color: #0a0a0a;
+}
+
+.plainBlack:hover:not(:disabled) {
+  color: #1a1a1a;
+}
+
+.plainBlack:active:not(:disabled) {
+  color: #000000;
+}
+
+/* Plain White */
+.plainWhite {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.plainWhite:hover:not(:disabled) {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.plainWhite:active:not(:disabled) {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Plain Gray */
+.plainGray {
+  background-color: transparent;
+  color: #6b7280;
+}
+
+.plainGray:hover:not(:disabled) {
+  color: #4b5563;
+}
+
+.plainGray:active:not(:disabled) {
+  color: #374151;
+}
+
+/* ===== STATES ===== */
+
+/* Disabled state */
+.disabled,
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Loading state */
+.loading {
+  cursor: wait;
+  pointer-events: none;
+}
+
+/* Full width */
+.fullWidth {
+  width: 100%;
+  display: flex;
+}
+
+/* ===== ICON STYLES ===== */
+
+.iconLeft,
+.iconRight {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.micro .iconLeft,
+.micro .iconRight {
+  width: 16px;
+  height: 16px;
+}
+
+.small .iconLeft,
+.small .iconRight {
+  width: 16px;
+  height: 16px;
+}
+
+.text {
+  flex: 1;
+  min-width: 0;
+}
+
+.loadingText {
+  opacity: 0.7;
+}
+
+/* Icon only buttons */
+.iconOnly {
+  padding: 0;
+  border-radius: 50%;
+}
+
+/* ===== RESPONSIVE & ACCESSIBILITY ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .primaryWhite {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .primaryWhite:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="dark"] .secondaryBlue,
+[data-theme="dark"] .secondaryBlack,
+[data-theme="dark"] .secondaryGray {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .secondaryBlue:hover:not(:disabled) {
+  background-color: rgba(48, 146, 250, 0.1);
+}
+
+[data-theme="dark"] .tertiaryBlack {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .tertiaryBlack:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+
+
+
+
+
+

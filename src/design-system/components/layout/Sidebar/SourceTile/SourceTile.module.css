@@ -1,0 +1,255 @@
+/* Base tile styles - Exact Figma specs */
+.tile {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%; /* Full width of container */
+  padding: 12px;
+  border-radius: 20px; /* var(--border-radius-scale-5) - Figma exact */
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  border: none;
+  box-sizing: border-box;
+}
+
+/* State: Default */
+.tile.state-default {
+  background-color: #ffffff; /* var(--main-interaction-neutral-container-xxsubtle) */
+}
+
+/* State: Hover */
+.tile.state-hover,
+.tile.clickable:hover {
+  background-color: #f6f7fb; /* Figma hover state */
+}
+
+/* State: Clicked */
+.tile.state-clicked {
+  background-color: #ffffff;
+}
+
+/* State: Selected */
+.tile.state-selected {
+  background-color: #f6f7fb; /* var(--main-interaction-neutral-container-xsubtle) */
+}
+
+/* State: Loading */
+.tile.state-loading {
+  background-color: #ffffff;
+  border: 1px dashed #d3d9e0; /* var(--main-border) */
+  pointer-events: none;
+}
+
+/* State: Error */
+.tile.state-error {
+  background-color: #fff5f2; /* var(--main-status-danger-container) */
+  border: 1px solid #e62600; /* var(--main-status-danger-border) */
+}
+
+.tile.clickable {
+  cursor: pointer;
+}
+
+.tile:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Icon decoration - 40x40px container - Figma exact */
+.iconWrapper {
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.iconBackground {
+  display: flex;
+  flex: 1;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  background-color: #f6f7fb; /* var(--main-interaction-neutral-container-xsubtle) - Figma exact */
+  border-radius: 8px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Font Awesome Duotone icon styling */
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  font-size: 19px;
+  color: #2f3e4e; /* var(--main-icon) */
+  line-height: 0;
+  font-style: normal;
+  position: relative;
+  padding-left: 0;
+  padding-right: 19px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+/* Duotone primary layer */
+.icon::before {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: -19px;
+  position: relative;
+  flex-shrink: 0;
+  width: 19px;
+  height: 19px;
+  opacity: 1;
+}
+
+/* Duotone secondary layer (40% opacity) */
+.icon::after {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: -19px;
+  position: relative;
+  flex-shrink: 0;
+  width: 19px;
+  height: 19px;
+  opacity: 0.4;
+}
+
+/* Main content */
+.content {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: 40px;
+  min-width: 148px;
+  flex: 1; /* Take remaining space */
+}
+
+.textContent {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  height: 100%;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+}
+
+.title {
+  max-height: 24px;
+  min-width: 100%;
+  width: min-content;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+  font-family: 'DM Sans', var(--font-family-primary), sans-serif;
+  font-size: 16px;
+  font-weight: 500; /* Medium */
+  line-height: 24px; /* var(--line-heights-label-label-medium) */
+  color: #4c5966; /* var(--main-interaction-neutral-foreground) */
+  margin: 0;
+  font-variation-settings: 'opsz' 14;
+}
+
+.tile.state-hover .title,
+.tile.clickable:hover .title {
+  color: #2f3e4e; /* var(--main-interaction-neutral-foreground-hover) */
+}
+
+.tile.state-selected .title,
+.tile.state-clicked .title {
+  color: #2f3e4e; /* var(--main-interaction-neutral-foreground-selected) */
+}
+
+.tile.state-loading .title {
+  color: #7a838c; /* var(--main-interaction-neutral-foreground-subtle) */
+}
+
+.secondary {
+  display: flex;
+  gap: 4px; /* var(--scale-scale-1) */
+  align-items: center;
+}
+
+.subtitle {
+  font-family: 'DM Sans', var(--font-family-primary), sans-serif;
+  font-size: 14px; /* var(--text-sizes-body-body-small) */
+  font-weight: 400; /* Regular */
+  line-height: 20px; /* var(--line-heights-body-body-small) */
+  color: #4c5966; /* var(--main-text-subtle) */
+  font-variation-settings: 'opsz' 14;
+}
+
+/* Action buttons */
+.moreButton,
+.retryButton,
+.closeButton {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 100px; /* pill */
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.moreButton:hover,
+.retryButton:hover,
+.closeButton:hover {
+  background-color: var(--color-surface-tertiary, rgba(0, 0, 0, 0.05));
+}
+
+.moreButton:focus-visible,
+.retryButton:focus-visible,
+.closeButton:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: -2px;
+}
+
+.moreButton i,
+.retryButton i,
+.closeButton i {
+  font-size: 12.8px;
+  color: #4c5966; /* var(--main-interaction-neutral-foreground) */
+  line-height: 0;
+}
+
+.errorActions {
+  display: flex;
+  gap: 0;
+  align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .tile {
+    padding: 10px;
+    gap: 10px;
+  }
+  
+  .iconWrapper {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .icon {
+    width: 20px;
+    height: 20px;
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,84 @@
+.attachment {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background-color: #f6f7fb;
+  border-radius: 12px;
+  box-shadow: 0px -1px 2px 0px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  width: 215px;
+  box-sizing: border-box;
+}
+
+.attachment:hover {
+  background-color: var(--color-surface-tertiary);
+  box-shadow: 0px -1px 3px 0px rgba(0, 0, 0, 0.16);
+}
+
+.attachment:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.iconSticker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+}
+
+.iconBackground {
+  position: absolute;
+  inset: 0;
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+
+.iconSticker i {
+  position: relative;
+  font-size: 16px;
+  color: #3092fa;
+  z-index: 1;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  gap: 4px;
+}
+
+.fileName {
+  font-family: var(--font-family-primary);
+  font-size: 14px;
+  font-weight: var(--font-weight-regular);
+  line-height: 20px;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fileSize {
+  font-family: var(--font-family-primary);
+  font-size: 12px;
+  font-weight: var(--font-weight-regular);
+  line-height: 16px;
+  color: var(--color-text-subtle);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .attachment {
+    transition: none;
+  }
+}
+
+

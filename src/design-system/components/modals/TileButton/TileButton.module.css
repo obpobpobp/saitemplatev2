@@ -1,0 +1,292 @@
+/* Base tile button styles */
+.tile {
+  display: flex;
+  box-sizing: border-box;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  background-color: transparent;
+  cursor: default;
+  transition: all 0.2s ease;
+  font-family: var(--font-family-primary);
+  text-align: left;
+  position: relative;
+}
+
+.tile.clickable {
+  cursor: pointer;
+}
+
+.tile:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Orientation: Vertical */
+.tile.orientation-vertical {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  min-width: 160px;
+  min-height: 120px;
+}
+
+.tile.orientation-vertical .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.tile.orientation-vertical .main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.tile.orientation-vertical .textWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  white-space: pre-wrap;
+}
+
+/* Orientation: Horizontal */
+.tile.orientation-horizontal {
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 16px;
+  min-width: 252px;
+  min-height: 64px;
+}
+
+.tile.orientation-horizontal .content {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.tile.orientation-horizontal .main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.tile.orientation-horizontal .textWrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  white-space: pre-wrap;
+}
+
+/* Color: Neutral - Default State */
+.tile.color-neutral.state-default {
+  background-color: #ffffff;
+  border-color: #d3d9e0;
+}
+
+.tile.color-neutral.state-default .title {
+  color: #4c5966;
+}
+
+.tile.color-neutral.state-default .subtitle {
+  color: #7a838c;
+}
+
+.tile.color-neutral.state-default .icon {
+  color: #4c5966;
+}
+
+/* Color: Neutral - Hover State */
+.tile.color-neutral.state-hover {
+  background-color: #f6f7fb;
+  border-color: #c5cdd4;
+}
+
+.tile.color-neutral.state-hover .title {
+  color: #2f3e4e;
+}
+
+.tile.color-neutral.state-hover .subtitle {
+  color: #4c5966;
+}
+
+.tile.color-neutral.state-hover .icon {
+  color: #2f3e4e;
+}
+
+/* Color: Neutral - Pressed State */
+.tile.color-neutral.state-pressed {
+  background-color: #e6ebef;
+  border-color: #c5cdd4;
+}
+
+.tile.color-neutral.state-pressed .title {
+  color: #2f3e4e;
+}
+
+.tile.color-neutral.state-pressed .subtitle {
+  color: #4c5966;
+}
+
+.tile.color-neutral.state-pressed .icon {
+  color: #2f3e4e;
+}
+
+/* Color: Neutral - Selected State */
+.tile.color-neutral.state-selected {
+  background-color: #e6ebef;
+  border-color: #4c5966;
+}
+
+.tile.color-neutral.state-selected .title {
+  color: #2f3e4e;
+}
+
+.tile.color-neutral.state-selected .subtitle {
+  color: #4c5966;
+}
+
+.tile.color-neutral.state-selected .icon {
+  color: #2f3e4e;
+}
+
+/* Color: Neutral - Loading State */
+.tile.color-neutral.state-loading {
+  background-color: #f6f7fb;
+  border-color: #c5cdd4;
+  cursor: wait;
+}
+
+.tile.color-neutral.state-loading .title {
+  color: #7a838c;
+}
+
+.tile.color-neutral.state-loading .icon {
+  color: #7a838c;
+}
+
+/* Color: Neutral - Disabled State */
+.tile.color-neutral.state-disabled {
+  background-color: #f6f7fb;
+  border-color: #e6ebef;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.tile.color-neutral.state-disabled .title {
+  color: #a0a8af;
+}
+
+.tile.color-neutral.state-disabled .subtitle {
+  color: #a0a8af;
+}
+
+.tile.color-neutral.state-disabled .icon {
+  color: #a0a8af;
+}
+
+/* Icon */
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.icon {
+  font-size: 32px;
+  line-height: 0;
+}
+
+/* Text */
+.title {
+  font-family: var(--font-family-primary);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  margin: 0;
+  width: 100%;
+}
+
+.subtitle {
+  font-family: var(--font-family-primary);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin: 0;
+  width: 100%;
+}
+
+/* Chip */
+.chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  background-color: #ffffff;
+  border: 1px solid #d3d9e0;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.chipLabel {
+  font-family: var(--font-family-primary);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  color: #4c5966;
+  text-align: center;
+}
+
+/* Arrow */
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.arrow i {
+  font-size: 16px;
+  color: #4c5966;
+  line-height: 0;
+}
+
+/* Disabled state */
+.tile.disabled {
+  pointer-events: none;
+}
+
+/* Loading specific */
+.tile.state-loading .iconWrapper {
+  color: inherit;
+}
+
+
+
+
+
+

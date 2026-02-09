@@ -1,0 +1,227 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Drag & Drop Zone */
+.dropZone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background-color: var(--color-surface-secondary);
+  border: 2px dashed var(--color-border);
+  border-bottom: none;
+  border-top-left-radius: var(--border-radius-lg);
+  border-top-right-radius: var(--border-radius-lg);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.dropZone.dragging {
+  background-color: var(--color-surface-tertiary);
+  border-color: var(--color-primary);
+}
+
+.fileInput {
+  display: none;
+}
+
+.dropContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  text-align: center;
+}
+
+/* Upload icon is now rendered in JSX */
+
+.dropTitle {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-xxl);
+  color: var(--color-text-subtle);
+  margin: 0;
+}
+
+.dropSubtitle {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-sm);
+  color: var(--color-text-xsubtle);
+  margin: 0;
+}
+
+.chooseFileButton {
+  border: none;
+  background: none;
+  padding: 0;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.chooseFileButton:hover {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+/* Input Area */
+.inputArea {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm);
+  background-color: var(--color-surface-primary);
+  border: 1px solid var(--color-border);
+  border-bottom-left-radius: var(--border-radius-lg);
+  border-bottom-right-radius: var(--border-radius-lg);
+}
+
+.inputWrapper {
+  padding: 0 var(--spacing-xs);
+}
+
+.input {
+  width: 100%;
+  height: 32px;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-md);
+  color: var(--color-text);
+}
+
+.input::placeholder {
+  color: var(--color-text);
+}
+
+.input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  width: 100%;
+}
+
+.clearButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-pill);
+  background-color: var(--color-surface-tertiary);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.clearButton:hover:not(:disabled) {
+  background-color: var(--color-surface-secondary);
+}
+
+.clearButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.spacer {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.contextTag {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--color-surface-secondary);
+  border-radius: var(--border-radius-lg);
+}
+
+.contextTag i {
+  font-size: 14px;
+  color: var(--color-text-subtle);
+}
+
+.contextLabel {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-sm);
+  color: var(--color-text-subtle);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 24px;
+}
+
+.submitButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--border-radius-pill);
+  background-color: var(--color-text);
+  color: var(--color-surface-primary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.submitButton:hover:not(.submitDisabled) {
+  background-color: var(--color-text-strong);
+  transform: scale(1.05);
+}
+
+.submitButton.submitDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.clearButton i,
+.submitButton i {
+  font-size: 16px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .dropZone,
+  .clearButton,
+  .submitButton,
+  .chooseFileButton {
+    transition: none;
+  }
+  
+  .submitButton:hover:not(.submitDisabled) {
+    transform: none;
+  }
+}
+
+

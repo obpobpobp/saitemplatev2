@@ -1,0 +1,280 @@
+/* Header Dropdown - Project Switcher Popover */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 256px;
+  max-width: 450px;
+  width: 357px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  z-index: 1000;
+}
+
+/* Content wrapper */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 0;
+}
+
+/* Header section */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 16px 0 32px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.title {
+  flex: 1;
+  font-family: 'DM Sans', var(--font-family-primary), sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #7a838c;
+  white-space: pre-wrap;
+}
+
+.closeButton {
+  position: absolute;
+  right: 16px;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.closeButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.closeButton i {
+  font-size: 12.8px;
+  color: #4c5966;
+}
+
+/* Projects list */
+.projectsList {
+  display: flex;
+  flex-direction: column;
+  max-height: 560px;
+  overflow: hidden;
+}
+
+.projectItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+}
+
+.projectItem:hover {
+  background-color: #f6f7fb;
+}
+
+.projectEmoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.projectInfo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.projectTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.projectTitle {
+  flex: 1;
+  font-family: 'DM Sans', var(--font-family-primary), sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  color: #2f3e4e;
+  white-space: pre-wrap;
+  min-width: 0;
+}
+
+.subElements {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.viewingChip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 16px;
+  padding: 0 4px;
+  background-color: #e2effd;
+  border-radius: 9999px;
+  box-sizing: border-box;
+}
+
+.viewingIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  position: relative;
+}
+
+.viewingIcon i {
+  font-size: 12.8px;
+  color: #1168c3;
+}
+
+.viewingLabel {
+  font-family: 'DM Sans', var(--font-family-primary), sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  color: #1168c3;
+  text-align: center;
+}
+
+.projectTime {
+  font-family: 'DM Sans', var(--font-family-primary), sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #4c5966;
+}
+
+.projectMenuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.2s;
+}
+
+.projectMenuButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.projectMenuButton i {
+  font-size: 12.8px;
+  color: #4c5966;
+}
+
+/* Separator */
+.separator {
+  width: 100%;
+  height: 1px;
+  border-top: 1px solid #e6ebef;
+}
+
+/* Footer actions */
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+}
+
+.viewAllButton,
+.newProjectButton {
+  display: flex;
+  flex: 1;
+  gap: 4px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 20px;
+  box-sizing: border-box;
+  border-radius: 100px;
+  cursor: pointer;
+  font-family: 'DM Sans', var(--font-family-primary), sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: center;
+  transition: background-color 0.2s;
+  min-width: 0;
+}
+
+.viewAllButton {
+  background-color: #ffffff;
+  border: 1px solid #d3d9e0;
+  color: #4c5966;
+}
+
+.viewAllButton:hover {
+  background-color: #f6f7fb;
+}
+
+.newProjectButton {
+  background-color: #0a0a0a;
+  border: none;
+  color: #ffffff;
+}
+
+.newProjectButton:hover {
+  background-color: #2a2a2a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projectItem,
+  .closeButton,
+  .projectMenuButton,
+  .viewAllButton,
+  .newProjectButton {
+    transition: none;
+  }
+}
+

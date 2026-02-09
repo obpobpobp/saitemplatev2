@@ -1,0 +1,39 @@
+.logoBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: var(--color-surface-secondary);
+  border-radius: var(--border-radius-xs);
+  flex-shrink: 0;
+}
+
+.logoBox.clickable {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logoBox.clickable:hover {
+  background-color: #f6f7fb;
+}
+
+.logoBox.clickable:active {
+  background-color: #e6ebef;
+}
+
+.logoBox.clickable:focus {
+  outline: 2px solid #0a0a0a;
+  outline-offset: 2px;
+}
+
+.logoBox > * {
+  width: 16px;
+  height: 16px;
+}
+
+
+
+
+
+

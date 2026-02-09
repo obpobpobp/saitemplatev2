@@ -1,0 +1,204 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.questionNumber {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--color-text-title);
+}
+
+.marksChip {
+  background: var(--color-surface-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-full);
+  height: 24px;
+  min-width: 24px;
+  padding: 0 var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 20px;
+}
+
+.stem {
+  font-size: var(--font-size-lg);
+  line-height: 24px;
+  color: var(--color-text);
+  white-space: pre-wrap;
+}
+
+.questionText {
+  font-size: var(--font-size-lg);
+  line-height: 24px;
+  color: var(--color-text);
+  white-space: pre-wrap;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  width: 100%;
+}
+
+.option {
+  background: var(--color-surface-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  min-height: 44px;
+  padding: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+
+.option:hover:not(.disabled) {
+  border-color: var(--color-text-subtle);
+}
+
+.option.selected {
+  border-color: var(--color-text);
+}
+
+.option.correct {
+  border-color: var(--color-success);
+  background: var(--color-surface-primary);
+}
+
+.option.incorrect {
+  border-color: var(--color-danger);
+  background: var(--color-surface-primary);
+}
+
+.option.disabled {
+  border-color: var(--color-border-subtle);
+  cursor: not-allowed;
+}
+
+.optionContent {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex: 1;
+  min-width: 0;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-xs);
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  background: var(--color-surface-primary);
+  transition: all 0.2s;
+}
+
+.option.selected .checkbox {
+  background: var(--color-text);
+  border-color: var(--color-text);
+}
+
+.checkIcon {
+  font-size: 12px;
+  color: var(--color-surface-primary);
+  display: none;
+}
+
+.option.selected .checkIcon {
+  display: block;
+}
+
+.optionLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-full);
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-subtle);
+  line-height: 20px;
+}
+
+.option.disabled .optionLabel {
+  color: var(--color-text-disabled);
+}
+
+.optionText {
+  flex: 1;
+  font-size: var(--font-size-base);
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--color-text-subtle);
+  white-space: pre-wrap;
+  min-width: 0;
+}
+
+.option.selected .optionText,
+.option.correct .optionText,
+.option.incorrect .optionText {
+  color: var(--color-text);
+}
+
+.option.disabled .optionText {
+  color: var(--color-text-disabled);
+}
+
+.optionIcon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.correctIcon {
+  color: var(--color-success);
+}
+
+.incorrectIcon {
+  color: var(--color-danger);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .container {
+    gap: var(--spacing-md);
+  }
+
+  .questionText,
+  .stem {
+    font-size: var(--font-size-base);
+    line-height: 22px;
+  }
+
+  .option {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+}
+

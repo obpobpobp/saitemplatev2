@@ -1,0 +1,122 @@
+.container {
+  position: relative;
+  width: 100%;
+  background-color: var(--color-surface-secondary);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--border-radius-lg);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.container:hover {
+  border-color: var(--color-border-hover);
+  background-color: var(--color-surface-tertiary);
+}
+
+.container.dragging {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-subtle);
+}
+
+.container.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+  gap: var(--spacing-sm);
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-center: center;
+  width: 48px;
+  height: 50px;
+  font-size: 38.5px;
+  color: var(--color-text);
+}
+
+.iconContainer i {
+  line-height: 1;
+}
+
+.title {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-xxl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-title-xxl);
+  color: var(--color-text-secondary);
+  margin: 0;
+  text-align: center;
+}
+
+.description {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body-sm);
+  color: var(--color-text-subtle);
+  margin: 0;
+  text-align: center;
+}
+
+.chooseButton {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.chooseButton:hover {
+  color: var(--color-primary-hover);
+}
+
+.chooseButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.hiddenInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .content {
+    padding: var(--spacing-md);
+  }
+  
+  .iconContainer {
+    font-size: 32px;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .title {
+    font-size: var(--font-size-lg);
+  }
+}
+
+
+
+
+
+
+

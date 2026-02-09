@@ -1,0 +1,133 @@
+/**
+ * Base heading styles
+ */
+.heading {
+  margin: 0;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+/**
+ * Level-based default styles
+ */
+.level1 {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tighter);
+}
+
+.level2 {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.level3 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.level4 {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.level5 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.level6 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+/**
+ * Style variants (override level-based styles)
+ */
+.display {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-5xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tighter);
+}
+
+.headline {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.subtitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
+  color: var(--color-text-secondary);
+}
+
+/**
+ * Responsive typography - Mobile first
+ */
+@media (max-width: 768px) {
+  .level1,
+  .display {
+    font-size: var(--font-size-4xl);
+  }
+
+  .level2,
+  .headline {
+    font-size: var(--font-size-3xl);
+  }
+
+  .level3,
+  .title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .level4 {
+    font-size: var(--font-size-xl);
+  }
+
+  .level5,
+  .subtitle {
+    font-size: var(--font-size-lg);
+  }
+
+  .level6 {
+    font-size: var(--font-size-md);
+  }
+}
+
+/**
+ * Tablet breakpoint
+ */
+@media (min-width: 769px) and (max-width: 1023px) {
+  .level1,
+  .display {
+    font-size: var(--font-size-4xl);
+  }
+
+  .level2,
+  .headline {
+    font-size: var(--font-size-3xl);
+  }
+}
+
+
+
+
+
+
+

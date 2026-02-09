@@ -1,0 +1,133 @@
+.message {
+  display: flex;
+  gap: var(--spacing-sm);
+  width: 100%;
+  margin-bottom: var(--spacing-md);
+}
+
+.message.user {
+  flex-direction: row-reverse;
+}
+
+.message.assistant {
+  flex-direction: row;
+}
+
+.avatarWrapper {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.defaultAvatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--color-surface-tertiary);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  flex: 1;
+  min-width: 0;
+}
+
+.user .content {
+  align-items: flex-end;
+}
+
+.assistant .content {
+  align-items: flex-start;
+}
+
+.bubble {
+  max-width: 100%;
+  padding: var(--spacing-sm);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-md);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.assistant .bubble {
+  background-color: transparent;
+  color: var(--color-text);
+  border-radius: var(--border-radius-md);
+}
+
+.user .bubble {
+  background-color: var(--color-primary);
+  color: var(--color-surface-primary);
+  border-radius: var(--border-radius-md);
+}
+
+.timestamp {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-xs);
+  color: var(--color-text-subtle);
+  padding: 0 var(--spacing-sm);
+}
+
+/* Typography within messages */
+.bubble p {
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.bubble p:last-child {
+  margin-bottom: 0;
+}
+
+.bubble strong {
+  font-weight: var(--font-weight-bold);
+}
+
+.bubble em {
+  font-style: italic;
+}
+
+.bubble code {
+  padding: 2px 4px;
+  background-color: var(--color-surface-tertiary);
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-family-mono);
+  font-size: 0.9em;
+}
+
+.user .bubble code {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Lists within messages */
+.bubble ul,
+.bubble ol {
+  margin: var(--spacing-sm) 0;
+  padding-left: var(--spacing-lg);
+}
+
+.bubble li {
+  margin-bottom: var(--spacing-xs);
+}
+
+.bubble li:last-child {
+  margin-bottom: 0;
+}
+
+
+
+
+
+
+

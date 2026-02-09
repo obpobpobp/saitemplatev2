@@ -1,0 +1,116 @@
+.container {
+  min-height: 100vh;
+  background: var(--color-background);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background: var(--color-surface-primary);
+  border-bottom: var(--border-width-thin) solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-index-sticky);
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-2xl) var(--spacing-lg);
+}
+
+.section {
+  margin-bottom: var(--spacing-3xl);
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.description {
+  margin-top: var(--spacing-md);
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-text-secondary);
+}
+
+.examples {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xl);
+}
+
+.example {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg);
+  background: var(--color-surface-secondary);
+  border-radius: var(--border-radius-md);
+  border: var(--border-width-thin) solid var(--color-border-light);
+}
+
+.label {
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wider);
+}
+
+.responsiveDemo {
+  padding: var(--spacing-2xl);
+  background: var(--color-surface-secondary);
+  border-radius: var(--border-radius-lg);
+  border: var(--border-width-thin) solid var(--color-border);
+}
+
+.responsiveDemo > * + * {
+  margin-top: var(--spacing-lg);
+}
+
+.themeDemo {
+  padding: var(--spacing-2xl);
+  background: var(--color-surface-secondary);
+  border-radius: var(--border-radius-lg);
+  border: var(--border-width-thin) solid var(--color-border);
+}
+
+.themeDemo > * + * {
+  margin-top: var(--spacing-md);
+}
+
+.footer {
+  padding: var(--spacing-xl);
+  background: var(--color-surface-primary);
+  border-top: var(--border-width-thin) solid var(--color-border);
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+  }
+
+  .main {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .example {
+    padding: var(--spacing-md);
+  }
+
+  .responsiveDemo,
+  .themeDemo {
+    padding: var(--spacing-lg);
+  }
+}
+
+
+
+
+
+
+

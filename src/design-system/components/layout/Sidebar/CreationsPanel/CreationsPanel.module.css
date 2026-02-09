@@ -1,0 +1,11 @@
+/* CreationsPanel specific styles */
+
+/* Footer buttons layout - single button full width */
+.footerButtons {
+  display: flex;
+  width: 100%;
+}
+
+
+
+

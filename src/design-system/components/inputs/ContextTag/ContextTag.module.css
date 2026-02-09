@@ -1,0 +1,63 @@
+.tag {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-1) var(--spacing-2);
+  background-color: var(--color-surface-secondary);
+  border: none;
+  border-radius: var(--border-radius-lg);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  position: sticky;
+  top: 0;
+}
+
+.tag:hover {
+  background-color: var(--color-surface-tertiary);
+}
+
+.tag:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12.8px;
+  width: 16px;
+  height: 16px;
+}
+
+.course .icon {
+  color: var(--color-text);
+}
+
+.topic .icon {
+  color: var(--color-text-strong);
+}
+
+.label {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-sm);
+  max-height: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.course .label {
+  color: var(--color-text);
+}
+
+.topic .label {
+  color: var(--color-text-strong);
+}
+
+
+
+
+

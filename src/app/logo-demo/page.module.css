@@ -1,0 +1,212 @@
+.container {
+  min-height: 100vh;
+  padding: var(--spacing-8);
+  background-color: var(--color-background);
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pageTitle {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-3) 0;
+}
+
+.description {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-lg);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--spacing-12) 0;
+}
+
+.section {
+  margin-bottom: var(--spacing-12);
+  padding: var(--spacing-6);
+  background-color: var(--color-surface-primary);
+  border-radius: var(--border-radius-lg);
+}
+
+.sectionTitle {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-2) 0;
+}
+
+.sectionDesc {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--spacing-6) 0;
+}
+
+.logoDisplay {
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-8);
+}
+
+.logoItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.logoRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  padding: var(--spacing-4) 0;
+  flex-wrap: wrap;
+}
+
+.sizeLabel,
+.colorLabel {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-top: var(--spacing-2);
+}
+
+.specs {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: var(--spacing-2) var(--spacing-4);
+  margin-top: var(--spacing-4);
+  padding: var(--spacing-4);
+  background-color: var(--color-surface-secondary);
+  border-radius: var(--border-radius-sm);
+}
+
+.specLabel {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.specValue {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.colorGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-4);
+}
+
+.colorBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-8);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--color-border);
+  min-height: 150px;
+}
+
+.codeBlock {
+  background-color: var(--color-surface-secondary);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-4);
+  overflow-x: auto;
+}
+
+.codeBlock pre {
+  margin: 0;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text);
+}
+
+.codeBlock code {
+  font-family: inherit;
+}
+
+.specGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-6);
+}
+
+.specCard {
+  padding: var(--spacing-4);
+  background-color: var(--color-surface-secondary);
+  border-radius: var(--border-radius-md);
+}
+
+.specCard h3 {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--spacing-3) 0;
+}
+
+.specCard ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.specCard li {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-2);
+}
+
+.specCard li:last-child {
+  margin-bottom: 0;
+}
+
+.specCard li strong {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-4);
+  }
+  
+  .pageTitle {
+    font-size: var(--font-size-xl);
+  }
+  
+  .description {
+    font-size: var(--font-size-md);
+  }
+  
+  .logoRow {
+    gap: var(--spacing-4);
+  }
+  
+  .specGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
+
+

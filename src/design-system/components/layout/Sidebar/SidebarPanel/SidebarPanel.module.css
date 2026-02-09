@@ -1,0 +1,285 @@
+/* Figma exact panel styling */
+.panel {
+  display: flex;
+  background-color: #ffffff; /* var(--main-background) - Figma exact */
+  border-radius: 20px; /* Figma exact */
+  padding: 20px; /* Figma exact */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth easing */
+  box-sizing: border-box;
+}
+
+/* When panel is collapsed (not expanded) */
+.panel.collapsed {
+  flex: 1 0 0;
+  min-height: 0;
+}
+
+/* When panel is expanded (showing content) */
+.panel.expanded {
+  flex: 1 0 0;
+  min-height: 0;
+}
+
+/* When entire sidebar is collapsed (icon-only mode) */
+.panel.sidebarCollapsed {
+  flex: 1 0 0;
+  min-height: 0;
+  padding: 20px; /* Figma: maintain padding for icon centering */
+}
+
+.inner {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+}
+
+/* Gap varies by state */
+.collapsed .inner {
+  gap: 8px; /* Figma: gap between header and footer when collapsed */
+}
+
+.expanded .inner {
+  gap: 8px; /* Figma: consistent 8px gap */
+}
+
+.sidebarCollapsed .inner {
+  gap: 0; /* No gap needed in icon-only mode */
+}
+
+/* Header - shown in both collapsed and expanded states (not in sidebar collapsed) */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-shrink: 0;
+  gap: 8px; /* Figma exact */
+}
+
+.headerLeft {
+  display: flex;
+  gap: 4px; /* Figma exact: gap between title and chevron */
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.title {
+  font-family: var(--font-family-primary);
+  font-size: 18px; /* Figma: Title-Large */
+  font-weight: 700; /* Figma: Bold */
+  line-height: 24px; /* Figma exact */
+  color: #2f3e4e; /* Figma: var(--main-text) */
+  margin: 0;
+}
+
+/* Chevron button (inline with title) */
+.chevronButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  flex-shrink: 0;
+}
+
+.chevronButton:hover {
+  opacity: 0.7;
+}
+
+.chevronButton:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.chevronIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  font-size: 12.8px; /* Figma exact */
+  color: #4c5966; /* Figma: var(--main-interaction-neutral-foreground) */
+  font-family: 'Font Awesome 6 Pro', sans-serif;
+  font-weight: 900;
+  line-height: 0;
+  font-style: normal;
+}
+
+/* Header right side actions */
+.headerRight {
+  display: flex;
+  gap: 4px; /* Figma exact */
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.headerActions {
+  display: flex;
+  gap: 8px; /* Figma exact: gap between action buttons */
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Sidebar collapsed (icon-only) state */
+.sidebarCollapsedContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+}
+
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px; /* Figma exact */
+  height: 32px; /* Figma exact */
+  padding: 0;
+  border: none;
+  border-radius: 100px; /* Figma: pill shape */
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+  color: #4c5966; /* Figma: var(--main-interaction-neutral-foreground) */
+}
+
+.iconButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.iconButton:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Icon within button */
+.iconButton i {
+  font-size: 16px; /* Figma: proper icon size for visibility */
+  color: #4c5966; /* Figma: var(--main-interaction-neutral-foreground) */
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Content area (only shown when expanded) */
+.content {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  gap: 0; /* No gap - scrollArea and footer have their own spacing */
+}
+
+.scrollArea {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  gap: 10px; /* Figma exact: gap for content sections */
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Figma exact: gap between tiles */
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* Footer area */
+.footer {
+  display: flex;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* Footer button layouts */
+.footerSingle {
+  display: flex;
+  width: 100%;
+}
+
+.footerDouble {
+  display: flex;
+  gap: 8px; /* Figma exact: gap between buttons */
+  width: 100%;
+  flex-wrap: wrap; /* Allow wrapping on mobile */
+  align-items: flex-start;
+}
+
+/* Scrollbar styling */
+.scrollArea::-webkit-scrollbar {
+  width: 8px; /* Figma exact */
+}
+
+.scrollArea::-webkit-scrollbar-track {
+  background: #ffffff; /* Figma: var(--main-container-xsubtle) */
+  border-radius: 9999px;
+}
+
+.scrollArea::-webkit-scrollbar-thumb {
+  background: #d3d9e0; /* Figma: var(--main-container-graphic) */
+  border-radius: 9999px;
+}
+
+.scrollArea::-webkit-scrollbar-thumb:hover {
+  background: #bcc4cd;
+}
+
+/* Responsive - maintain Figma spacing at all sizes */
+@media (max-width: 1024px) {
+  /* Keep all gaps and padding the same */
+  .panel {
+    padding: 20px; /* Figma exact - DO NOT reduce */
+  }
+  
+  .inner {
+    gap: 8px; /* Figma exact - maintain at all sizes */
+  }
+  
+  .collapsed .inner {
+    gap: 8px; /* Figma exact - maintain */
+  }
+  
+  .expanded .inner {
+    gap: 8px; /* Figma exact - maintain */
+  }
+}
+
+@media (max-width: 768px) {
+  .panel {
+    padding: 20px; /* Figma exact - maintain even on mobile */
+  }
+  
+  .title {
+    font-size: 18px; /* Maintain Title-Large size */
+  }
+}
+
+
+

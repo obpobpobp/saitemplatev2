@@ -1,0 +1,95 @@
+/* StatusChip - Exact Figma specs for "Viewing" badge */
+.chip {
+  display: flex;
+  gap: 4px;
+  height: 16px;
+  min-width: 16px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border-radius: 9999px; /* pill */
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* Variant: Info (for "Viewing" state) */
+.chip.variant-info {
+  background-color: #e2effd; /* var(--main-status-info-container) */
+}
+
+/* Variant: Success */
+.chip.variant-success {
+  background-color: var(--color-success-subtle, #d1f4e0);
+}
+
+/* Variant: Warning */
+.chip.variant-warning {
+  background-color: var(--color-warning-subtle, #fff4d5);
+}
+
+/* Variant: Error */
+.chip.variant-error {
+  background-color: var(--color-error-subtle, #fcdbd4);
+}
+
+/* Icon */
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.iconWrapper i {
+  font-size: 12.8px;
+  line-height: 0;
+  color: inherit;
+}
+
+/* Text */
+.text {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  font-family: 'DM Sans', var(--font-family-primary), sans-serif;
+  font-size: 12px; /* var(--text-sizes-label-label-xsmall) */
+  font-weight: 700; /* Bold */
+  line-height: 16px; /* var(--line-heights-label-label-xsmall) */
+  text-align: center;
+  white-space: pre-wrap;
+  font-variation-settings: 'opsz' 14;
+}
+
+/* Text colors by variant */
+.chip.variant-info .text,
+.chip.variant-info .iconWrapper {
+  color: #1168c3; /* var(--main-status-info-foreground-on-subtle) */
+}
+
+.chip.variant-success .text,
+.chip.variant-success .iconWrapper {
+  color: var(--color-success, #0e8345);
+}
+
+.chip.variant-warning .text,
+.chip.variant-warning .iconWrapper {
+  color: var(--color-warning, #bb6902);
+}
+
+.chip.variant-error .text,
+.chip.variant-error .iconWrapper {
+  color: var(--color-error, #d32f2f);
+}
+
+/* Spacer (for alignment) */
+.spacer {
+  width: 0.0000001px; /* 1e-7px */
+  height: 4px;
+  flex-shrink: 0;
+}

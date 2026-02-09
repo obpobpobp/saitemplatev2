@@ -1,0 +1,238 @@
+/* Mobile Header - 48px height */
+.mobileHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 8px 16px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e6ebef;
+  box-sizing: border-box;
+}
+
+/* Left section */
+.left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.logoBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: #f6f7fb;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.title {
+  font-family: 'DM Sans', var(--font-family-primary), sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  color: #2f3e4e;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdownButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.2s;
+}
+
+.dropdownButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dropdownButton i {
+  font-size: 12.8px;
+  color: #4c5966;
+}
+
+/* Right section */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.iconButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.2s;
+}
+
+.iconButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.iconButton i {
+  font-size: 12.8px;
+  color: #4c5966;
+}
+
+.signInButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 8px 16px;
+  background-color: #ffffff;
+  border: 1px solid #d3d9e0;
+  border-radius: 100px;
+  cursor: pointer;
+  font-family: 'DM Sans', var(--font-family-primary), sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #4c5966;
+  text-align: center;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.signInButton:hover {
+  background-color: #f6f7fb;
+}
+
+/* Avatar controls for mobile */
+.avatarControlMobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  background-color: #ffffff;
+  border-radius: 9999px;
+  flex-shrink: 0;
+}
+
+.avatarMobile {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.avatarMobile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarInitialsMobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #fff5c4;
+  font-family: 'Lazzer', sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 12px;
+  color: #2f3e4e;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* Collaborators for mobile - similar to desktop but in mobile context */
+.avatarSetMobile {
+  display: flex;
+  align-items: center;
+  padding-right: 4px;
+}
+
+.collabAvatarMobile {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  margin-right: -4px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.collabAvatarMobile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.collabControl {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  padding: 2px 8px 2px 2px;
+  background-color: #ffffff;
+  border: 1px solid #d3d9e0;
+  border-radius: 32px 20px 20px 32px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-right: -4px;
+}
+
+.collabControl:hover {
+  background-color: #f6f7fb;
+}
+
+.collabCountMobile {
+  font-family: 'DM Sans', var(--font-family-primary), sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #2f3e4e;
+}
+
+.collabChevronMobile {
+  font-size: 9.6px;
+  color: #4c5966;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dropdownButton,
+  .iconButton,
+  .signInButton,
+  .collabControl {
+    transition: none;
+  }
+}
+
+
+
+

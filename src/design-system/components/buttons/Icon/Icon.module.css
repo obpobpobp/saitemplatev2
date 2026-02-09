@@ -1,0 +1,46 @@
+/**
+ * Icon Component Styles
+ * Font Awesome icon wrapper with size variants
+ */
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  flex-shrink: 0;
+}
+
+/* Size variants matching button sizes */
+.micro {
+  width: 16px;
+  height: 16px;
+  font-size: 12.8px;
+}
+
+.small {
+  width: 16px;
+  height: 16px;
+  font-size: 12.8px;
+}
+
+.medium {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+}
+
+.large {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+}
+
+
+
+
+
+
+
+
+

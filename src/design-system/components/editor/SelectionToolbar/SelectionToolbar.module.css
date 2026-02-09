@@ -1,0 +1,96 @@
+.toolbar {
+  position: absolute;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs);
+  background-color: var(--color-surface-primary);
+  border-radius: var(--border-radius-pill);
+  box-shadow: var(--shadow-lg);
+  pointer-events: auto;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  width: 32px;
+  height: 32px;
+  padding: var(--spacing-sm);
+  border: none;
+  border-radius: var(--border-radius-pill);
+  background-color: var(--color-surface-primary);
+  color: var(--color-text-subtle);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-sm);
+}
+
+.button:hover:not(.disabled) {
+  background-color: var(--color-surface-secondary);
+  color: var(--color-text);
+}
+
+.button:active:not(.disabled) {
+  background-color: var(--color-surface-tertiary);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: -2px;
+}
+
+.button.active {
+  background-color: var(--color-surface-secondary);
+  color: var(--color-text);
+}
+
+.button.primary {
+  background-color: var(--main-interaction-neutral-container-bold, #0a0a0a);
+  color: var(--main-interaction-inverse-foreground, #ffffff);
+  padding: var(--spacing-sm) var(--spacing-md);
+  width: auto;
+}
+
+.button.primary:hover:not(.disabled) {
+  background-color: var(--main-interaction-neutral-container-bold-hover, #2f3e4e);
+}
+
+.button.withText {
+  padding: var(--spacing-sm) var(--spacing-md);
+  width: auto;
+}
+
+.button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button i {
+  font-size: 14px;
+}
+
+.labelText {
+  white-space: nowrap;
+}
+
+.separator {
+  width: 1px;
+  height: 20px;
+  background-color: var(--color-border);
+  flex-shrink: 0;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+}
+
+

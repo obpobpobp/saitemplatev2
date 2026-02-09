@@ -1,0 +1,106 @@
+.avatarSet {
+  display: flex;
+  align-items: center;
+  padding: 0 4px 0 0;
+  box-sizing: border-box;
+}
+
+.avatar {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  margin-right: -4px;
+  flex-shrink: 0;
+}
+
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+  box-sizing: border-box;
+}
+
+.initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-surface-secondary);
+  border: 2px solid white;
+  border-radius: 50%;
+  box-sizing: border-box;
+  font-family: 'Lazzer', var(--font-family-primary), sans-serif;
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 12px;
+  color: var(--color-text);
+  text-transform: uppercase;
+}
+
+.overflowControl {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  padding: 2px 8px 2px 2px;
+  margin-right: -4px;
+  background-color: var(--color-surface-primary);
+  border: 1px solid var(--color-border);
+  border-radius: 32px 20px 20px 32px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.overflowControl:hover {
+  background-color: var(--color-surface-secondary);
+}
+
+.overflowControl:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.overflowAvatar {
+  margin-right: 0;
+}
+
+.overflowCount {
+  font-family: var(--font-family-primary);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--color-text);
+}
+
+.chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12px;
+  height: 12px;
+  font-size: 9.6px;
+  color: var(--color-text-subtle);
+  font-family: 'Font Awesome 6 Pro', sans-serif;
+  font-weight: 900;
+  line-height: 0;
+}
+
+.chevron::before {
+  content: '\f078'; /* chevron-down */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overflowControl {
+    transition: none;
+  }
+}
+
+
+
+
+
+
