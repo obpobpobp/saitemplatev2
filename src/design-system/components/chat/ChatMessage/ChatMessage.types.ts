@@ -38,6 +38,23 @@ export interface ChatMessageProps {
    * Additional CSS class name
    */
   className?: string;
+  
+  /**
+   * Enable character-by-character typing animation for assistant messages
+   * @default false
+   */
+  enableTyping?: boolean;
+  
+  /**
+   * Typing speed in milliseconds per character
+   * @default 30
+   */
+  typingSpeed?: number;
+  
+  /**
+   * Callback when typing animation completes
+   */
+  onTypingComplete?: () => void;
 }
 
 

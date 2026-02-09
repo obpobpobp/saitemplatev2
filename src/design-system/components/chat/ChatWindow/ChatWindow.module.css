@@ -40,13 +40,18 @@
   width: 100%;
   height: 100%;
   box-shadow: none;
-  border-radius: var(--border-radius-lg);
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-height: 0;
+  flex: 1;
+  background: transparent;
 }
 
 /* Header */
@@ -56,6 +61,11 @@
   justify-content: space-between;
   padding: 20px;
   flex-shrink: 0;
+}
+
+/* Hide header in inline mode */
+.window.inline .header {
+  display: none;
 }
 
 .headerLeft {
@@ -159,12 +169,25 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
+  scroll-behavior: smooth;
 }
 
 .message {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
+  animation: messageSlideUp 0.3s var(--transition-timing-ease-out);
+}
+
+@keyframes messageSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .messageContent {
@@ -194,6 +217,14 @@
 
 .assistantMessage .messageContent {
   background: transparent;
+  transition: background-color var(--transition-base);
+}
+
+.assistantMessage .messageContent:hover {
+  background: var(--color-surface-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-md);
+  margin: calc(var(--spacing-md) * -1);
 }
 
 /* Attachments Stack */
@@ -333,6 +364,13 @@
   color: var(--color-text);
 }
 
+/* Thinking Indicator Container */
+.thinkingContainer {
+  display: flex;
+  align-items: flex-start;
+  animation: messageSlideUp 0.3s var(--transition-timing-ease-out);
+}
+
 /* Chat Input wrapper */
 .chatInput {
   /* Additional styles for ChatInput in ChatWindow context if needed */
@@ -361,4 +399,28 @@
 
 .messagesArea::-webkit-scrollbar-thumb:hover {
   background: var(--color-border-interactive);
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .messages {
+    scroll-behavior: auto;
+  }
+  
+  .message {
+    animation: messageFadeOnly 0.15s ease-out;
+  }
+  
+  .thinkingContainer {
+    animation: messageFadeOnly 0.15s ease-out;
+  }
+  
+  @keyframes messageFadeOnly {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }

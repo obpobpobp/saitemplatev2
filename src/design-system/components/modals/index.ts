@@ -14,6 +14,14 @@ export type { RenameProjectModalProps } from './RenameProjectModal';
 export { EmojiPicker } from './EmojiPicker';
 export type { EmojiPickerProps, EmojiCategory } from './EmojiPicker';
 
+// CreateArtifactModal component
+export { CreateArtifactModal } from './CreateArtifactModal';
+export type { CreateArtifactModalProps } from './CreateArtifactModal';
+
+// AddExamModal component
+export { AddExamModal } from './AddExamModal';
+export type { AddExamModalProps } from './AddExamModal';
+
 // Note: ModalHeader, ModalContent, ModalFooter, MobilePanel
 // are documented in README.md and should be implemented following
 // the same patterns as Modal component above

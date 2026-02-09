@@ -1,0 +1,47 @@
+/**
+ * CreationsViewToggle Styles
+ */
+
+.toggle {
+  display: inline-flex;
+  background-color: var(--color-surface-secondary);
+  border-radius: var(--border-radius-md);
+  padding: var(--spacing-1);
+  gap: var(--spacing-1);
+}
+
+.button {
+  flex: 1;
+  padding: var(--spacing-1) var(--spacing-3);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  background-color: transparent;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+}
+
+.button:hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-elevated);
+}
+
+.button.isActive {
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  box-shadow: var(--shadow-sm);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+}

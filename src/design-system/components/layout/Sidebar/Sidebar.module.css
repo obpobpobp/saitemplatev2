@@ -5,7 +5,7 @@
   background-color: transparent;
   transition: width 0.3s ease;
   position: relative;
-  padding: 0; /* Figma: no padding on sidebar itself */
+  padding: 0;
 }
 
 .sidebar.open {
@@ -24,7 +24,7 @@
   /* No border - clean separation */
 }
 
-/* Content area - panels container */
+/* Content area - panels container (legacy) */
 .content {
   display: flex;
   flex: 1;
@@ -34,6 +34,35 @@
   overflow-y: auto;
   overflow-x: hidden;
   min-height: 0;
+}
+
+/* Panel container - wraps tabs and content together */
+.panelContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 8px;
+  gap: 8px;
+  overflow: hidden;
+}
+
+/* Tab content area - for tabbed sidebar */
+.tabContent {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.tabPanel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
 }
 
 /* Scrollbar styling */
@@ -70,36 +99,33 @@
   .sidebar {
     position: fixed;
     top: 0;
-    bottom: 0;
+    bottom: 64px; /* Space for bottom tab bar */
+    left: 0;
     z-index: 100;
     box-shadow: var(--shadow-lg);
+    background: var(--color-background);
+    transform: translateX(-100%); /* Hidden by default */
+    transition: transform 0.3s ease;
   }
   
-  .sidebar.left {
-    left: 0;
-  }
-  
-  .sidebar.right {
-    right: 0;
+  .sidebar.open {
+    width: 85vw;
+    max-width: 400px;
+    transform: translateX(0); /* Slide in when active */
   }
   
   .sidebar.closed {
     transform: translateX(-100%);
   }
   
-  .sidebar.right.closed {
-    transform: translateX(100%);
-  }
-  
-  .sidebar.open {
-    width: 85vw;
-    max-width: 400px;
-  }
-  
-  /* CRITICAL: Maintain Figma spacing on mobile */
+  /* CRITICAL: Maintain spacing on mobile */
   .content {
     padding: 20px; /* Figma exact */
-    gap: 8px; /* Figma exact - DO NOT reduce */
+    gap: 8px; /* Figma exact */
+  }
+  
+  .tabContent {
+    padding: var(--spacing-md);
   }
 }
 

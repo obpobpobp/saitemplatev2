@@ -1,104 +1,198 @@
+'use client';
+
 import React from 'react';
-import { SourcesPanelProps } from './SourcesPanel.types';
-import { SidebarPanel } from '../SidebarPanel';
-import { Button } from '../../../buttons/Button';
-import { useSidebarContext } from '../SidebarContext';
+import classNames from 'classnames';
+import { Button } from '@design-system/components/buttons/Button';
+import type { SourcesPanelProps } from './SourcesPanel.types';
 import styles from './SourcesPanel.module.css';
 
 /**
- * SourcesPanel - Sources section panel with search/filter actions and footer buttons
- * Built on top of SidebarPanel with specific Sources functionality
+ * SourcesPanel - Container for source documents with sections
  * 
- * Per Figma: Header has search + filter buttons, Footer has Add + Record buttons
+ * Organized panel with three sections:
+ * - Studocu Recommendations (suggested documents)
+ * - Added from Studocu (user's library docs)
+ * - Your Uploads (user uploaded files)
+ * 
+ * Features:
+ * - Collapsible sections
+ * - Section headers with counts
+ * - Scrollable content area
+ * - Fixed footer with action buttons
  * 
  * @example
- * <SourcesPanel 
- *   isExpanded={isExpanded}
- *   onToggle={handleToggle}
- *   onSearchClick={handleSearch}
- *   onFilterClick={handleFilter}
- *   onAddClick={handleAdd}
- *   onRecordClick={handleRecord}
- * >
- *   <SourceTile title="Document.pdf" type="pdf" />
- * </SourcesPanel>
+ * ```tsx
+ * <SourcesPanel
+ *   studocuRecommendations={[...]}
+ *   studocuLibrary={[...]}
+ *   userUploads={[...]}
+ *   onAddFromStudocu={() => {}}
+ *   onUploadFile={() => {}}
+ * />
+ * ```
  */
 export const SourcesPanel: React.FC<SourcesPanelProps> = ({
-  children,
-  isExpanded = false,
-  onToggle,
-  onSearchClick,
-  onFilterClick,
-  onAddClick,
-  onRecordClick,
+  studocuRecommendations = [],
+  studocuLibrary = [],
+  userUploads = [],
+  onAddFromStudocu,
+  onUploadFile,
+  onSourceClick,
   className,
+  // Legacy props support
+  children,
+  onAddClick,
 }) => {
-  // Get sidebar state from context
-  const { isOpen } = useSidebarContext();
-  
-  // Header actions (search and filter buttons) - only shown when not expanded
-  const headerActions = (
-    <>
-      <Button
-        variant="tertiary"
-        color="gray"
-        size="small"
-        iconOnly={<i className="fa-solid fa-magnifying-glass" aria-hidden="true" />}
-        onClick={onSearchClick}
-        aria-label="Search sources"
-      />
-      <div className={styles.filterButtonGroup}>
-        <Button
-          variant="tertiary"
-          color="gray"
-          size="small"
-          iconOnly={<i className="fa-solid fa-chevron-down" aria-hidden="true" />}
-          onClick={onFilterClick}
-          aria-label="Filter sources"
-        />
-      </div>
-    </>
-  );
+  const [expandedSections, setExpandedSections] = React.useState({
+    recommendations: true,
+    library: true,
+    uploads: true,
+  });
 
-  // Footer with Add and Record buttons
-  const footer = (
-    <div className={styles.footerButtons}>
-      <Button
-        variant="primary"
-        color="black"
-        size="medium"
-        leftIcon={<i className="fa-solid fa-plus" aria-hidden="true" />}
-        onClick={onAddClick}
-        isFullWidth
-      >
-        Add
-      </Button>
-      <Button
-        variant="secondary"
-        color="black"
-        size="medium"
-        leftIcon={<i className="fa-solid fa-microphone" aria-hidden="true" />}
-        onClick={onRecordClick}
-        isFullWidth
-        className={styles.recordButton}
-      >
-        Record
-      </Button>
-    </div>
-  );
+  const toggleSection = (section: 'recommendations' | 'library' | 'uploads') => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section],
+    }));
+  };
+
+  const renderSection = (
+    title: string,
+    count: number,
+    items: React.ReactNode,
+    sectionKey: 'recommendations' | 'library' | 'uploads',
+    emptyMessage: string
+  ) => {
+    const isExpanded = expandedSections[sectionKey];
+    const isEmpty = count === 0;
+
+    return (
+      <div className={styles.section}>
+        <button
+          className={styles.sectionHeader}
+          onClick={() => toggleSection(sectionKey)}
+          aria-expanded={isExpanded}
+        >
+          <div className={styles.sectionTitle}>
+            <span className={styles.sectionName}>{title}</span>
+            <span className={styles.sectionCount}>{count}</span>
+          </div>
+          <i className={classNames('fa-solid', isExpanded ? 'fa-chevron-up' : 'fa-chevron-down', styles.chevron)} />
+        </button>
+        
+        {isExpanded && (
+          <div className={styles.sectionContent}>
+            {isEmpty ? (
+              <div className={styles.emptyState}>
+                <p>{emptyMessage}</p>
+              </div>
+            ) : (
+              items
+            )}
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  // Count items
+  const recommendationsCount = React.Children.count(studocuRecommendations);
+  const libraryCount = React.Children.count(studocuLibrary);
+  const uploadsCount = React.Children.count(userUploads);
+
+  // Support legacy children prop
+  const hasNewProps = recommendationsCount > 0 || libraryCount > 0 || uploadsCount > 0;
 
   return (
-    <SidebarPanel
-      title="Sources"
-      icon={<i className="fa-solid fa-books" aria-hidden="true" />}
-      isExpanded={isExpanded}
-      isSidebarCollapsed={!isOpen}
-      onToggle={onToggle}
-      headerActions={headerActions}
-      footer={footer}
-      className={className}
+    <div 
+      className={classNames(styles.panel, className)}
+      role="tabpanel"
+      id="sources-panel"
+      aria-labelledby="sources-tab"
     >
-      {children}
-    </SidebarPanel>
+      {/* Scrollable content with sections */}
+      <div className={styles.content}>
+        {hasNewProps ? (
+          <>
+            {/* Your Uploads - First */}
+            {renderSection(
+              'Your Uploads',
+              uploadsCount,
+              userUploads,
+              'uploads',
+              'No files uploaded yet'
+            )}
+
+            {/* Added from Studocu - Second, with recommendations inside */}
+            <div className={styles.section}>
+              <button
+                className={styles.sectionHeader}
+                onClick={() => toggleSection('library')}
+                aria-expanded={expandedSections.library}
+              >
+                <div className={styles.sectionTitle}>
+                  <span className={styles.sectionName}>Added from Studocu</span>
+                  <span className={styles.sectionCount}>{libraryCount}</span>
+                </div>
+                <i className={classNames('fa-solid', expandedSections.library ? 'fa-chevron-up' : 'fa-chevron-down', styles.chevron)} />
+              </button>
+              
+              {expandedSections.library && (
+                <div className={styles.sectionContent}>
+                  {libraryCount === 0 && recommendationsCount === 0 ? (
+                    <div className={styles.emptyState}>
+                      <p>No documents added from Studocu yet</p>
+                    </div>
+                  ) : (
+                    <>
+                      {/* Added documents first */}
+                      {studocuLibrary}
+                      
+                      {/* Recommendations as ghosted items */}
+                      {recommendationsCount > 0 && (
+                        <div className={styles.recommendationsGroup}>
+                          {studocuRecommendations}
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+          </>
+        ) : (
+          // Legacy support - render children as before
+          children
+        )}
+      </div>
+      
+      {/* Footer with action buttons */}
+      <div className={styles.footer}>
+        {(onAddFromStudocu || onAddClick) && (
+          <Button
+            variant="primary"
+            color="black"
+            size="medium"
+            leftIcon={<i className="fa-solid fa-plus" aria-hidden="true" />}
+            onClick={onAddFromStudocu || onAddClick}
+            isFullWidth
+          >
+            Add from Studocu
+          </Button>
+        )}
+        {onUploadFile && (
+          <Button
+            variant="secondary"
+            color="black"
+            size="medium"
+            leftIcon={<i className="fa-solid fa-upload" aria-hidden="true" />}
+            onClick={onUploadFile}
+            isFullWidth
+          >
+            Upload File
+          </Button>
+        )}
+      </div>
+    </div>
   );
 };

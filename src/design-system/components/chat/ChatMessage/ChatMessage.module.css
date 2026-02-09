@@ -81,6 +81,27 @@
   padding: 0 var(--spacing-sm);
 }
 
+.thinkingIndicator {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: 4px 8px;
+  background: #F5F7FA;
+  border-radius: var(--border-radius-sm);
+  font-size: 13px;
+  font-weight: var(--font-weight-regular);
+  color: #6B7280;
+  margin-bottom: var(--spacing-2);
+  width: fit-content;
+}
+
+.thinkingIcon {
+  width: 16px;
+  height: 16px;
+  color: #9CA3AF;
+  flex-shrink: 0;
+}
+
 /* Typography within messages */
 .bubble p {
   margin: 0 0 var(--spacing-sm) 0;
@@ -123,6 +144,32 @@
 
 .bubble li:last-child {
   margin-bottom: 0;
+}
+
+/* Typing Cursor */
+.typingCursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-regular);
+  animation: cursorBlink 1s step-end infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .typingCursor {
+    animation: none;
+    opacity: 1;
+  }
 }
 
 

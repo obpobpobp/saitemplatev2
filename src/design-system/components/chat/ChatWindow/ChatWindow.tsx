@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ChatWindowProps } from './ChatWindow.types';
 import { ChatInput } from '../ChatInput';
+import { TypingIndicator } from '../TypingIndicator';
 import styles from './ChatWindow.module.css';
 
 const ASSISTANT_AVATAR = '/Assistant avatar.png';
@@ -18,18 +19,21 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
   suggestedActions = [],
   onSendMessage,
   onActionClick,
-  onAttach,
-  onContext,
-  onCreate,
-  onActionChipClick,
+  onAddClick,
+  onContextClick,
+  onCreateClick,
+  onSourceToggle,
   aiTool = 'ask-ai',
-  contextTags = [],
-  actionChips = [],
-  isLoadingAttachments = false,
+  sources = [],
+  showContextMenu = false,
+  attachments = [],
   className,
   inline = false,
+  isThinking = false,
+  onTypingComplete,
 }) => {
   const [inputValue, setInputValue] = React.useState('');
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Lock body scroll when chat is open (only for non-inline mode)
   useEffect(() => {
@@ -42,6 +46,13 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
       document.body.style.overflow = '';
     };
   }, [isOpen, inline]);
+
+  // Auto-scroll to bottom when messages change or thinking state changes
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }
+  }, [messages, isThinking]);
 
   const handleSend = () => {
     if (inputValue.trim() && onSendMessage) {
@@ -146,6 +157,16 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                       </div>
                     </div>
                   ))}
+                  
+                  {/* Thinking Indicator */}
+                  {isThinking && (
+                    <div className={styles.thinkingContainer}>
+                      <TypingIndicator />
+                    </div>
+                  )}
+                  
+                  {/* Scroll anchor */}
+                  <div ref={messagesEndRef} />
                 </div>
               )}
             </div>
@@ -176,16 +197,17 @@ export const ChatWindow: React.FC<ChatWindowProps> = ({
                 value={inputValue}
                 onChange={setInputValue}
                 onSubmit={handleSend}
-                onAttach={onAttach}
-                onContext={onContext}
-                onCreate={onCreate}
-                onActionChipClick={onActionChipClick}
+                onAddClick={onAddClick}
+                onContextClick={onContextClick}
+                onCreateClick={onCreateClick}
+                onSourceToggle={onSourceToggle}
                 aiTool={aiTool}
-                contextTags={contextTags}
-                actionChips={actionChips}
-                isLoadingAttachments={isLoadingAttachments}
+                sources={sources}
+                showContextMenu={showContextMenu}
+                attachments={attachments}
                 placeholder="Ask about this project"
                 className={styles.chatInput}
+                isProcessing={isThinking}
               />
             </div>
           </div>

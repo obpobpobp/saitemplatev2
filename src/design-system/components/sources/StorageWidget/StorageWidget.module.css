@@ -1,0 +1,109 @@
+/**
+ * StorageWidget Styles
+ * 
+ * Storage statistics and progress bar display.
+ */
+
+/* ===== BASE STYLES ===== */
+.widget {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  
+  /* Spacing */
+  padding: var(--spacing-3);
+  
+  /* Colors */
+  background-color: var(--color-surface-secondary);
+  
+  /* Borders */
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-md);
+}
+
+/* ===== STATS ROW ===== */
+.stats {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  
+  /* Typography */
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-primary);
+}
+
+.icon {
+  /* Typography */
+  font-size: var(--font-size-md);
+  line-height: 1;
+}
+
+.text {
+  /* Layout */
+  flex: 1;
+}
+
+/* ===== PROGRESS BAR ===== */
+.progressContainer {
+  /* Layout */
+  height: 6px;
+  
+  /* Colors */
+  background-color: var(--color-surface-tertiary);
+  
+  /* Borders */
+  border-radius: var(--border-radius-pill);
+  
+  /* Effects */
+  overflow: hidden;
+}
+
+.progressFill {
+  /* Layout */
+  height: 100%;
+  
+  /* Borders */
+  border-radius: var(--border-radius-pill);
+  
+  /* Effects */
+  transition: width var(--transition-slow), background-color var(--transition-slow);
+}
+
+/* Progress colors */
+.progressBlue {
+  background-color: var(--color-primary);
+}
+
+.progressAmber {
+  background-color: var(--color-warning);
+}
+
+.progressRed {
+  background-color: var(--color-error);
+}
+
+/* ===== SIZE TEXT ===== */
+.size {
+  /* Typography */
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-secondary);
+  text-align: right;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .widget {
+    padding: var(--spacing-2);
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  .progressFill {
+    transition: none;
+  }
+}

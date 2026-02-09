@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import { Logo } from '@/design-system/components/branding/Logo';
 import { Sidebar, SidebarPanel, SourceTile, StatusChip } from '@/design-system/components/layout/Sidebar';
-import { DragDropUpload, FloatingAssistantButton } from '@/design-system/components/uploads';
+import { DragDropUpload } from '@/design-system/components/uploads';
+// FloatingAssistantButton removed - use TabbedSidebar pattern instead
 import styles from './page.module.css';
 
 /**
@@ -271,8 +272,7 @@ export default function ProjectPage(): JSX.Element {
         </main>
       </div>
 
-      {/* Floating Assistant Button */}
-      {!isFullscreen && <FloatingAssistantButton onClick={handleAssistantClick} />}
+      {/* Note: FloatingAssistantButton removed - use TabbedSidebar pattern instead */}
     </div>
   );
 }

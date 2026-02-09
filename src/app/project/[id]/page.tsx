@@ -1,19 +1,22 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Logo } from '@/design-system/components/branding/Logo';
 import { Header } from '@/design-system/components/layout/Header';
-import { Sidebar, CreationsPanel, SourcesPanel, SourceTile } from '@/design-system/components/layout/Sidebar';
-import { DragDropUpload, FloatingAssistantButton } from '@/design-system/components/uploads';
+import { Sidebar } from '@/design-system/components/layout/Sidebar';
+import { SourcesPanel } from '@/design-system/components/sources';
+import { CreationsPanel } from '@/design-system/components/creations';
+import { DragDropUpload } from '@/design-system/components/uploads';
 import { ChatWindow } from '@/design-system/components/chat';
 import { ContentEditor } from '@/design-system/components/editor';
-import { RenameProjectModal } from '@/design-system/components/modals';
+import { RenameProjectModal, CreateArtifactModal, AddExamModal } from '@/design-system/components/modals';
 import { MockExam } from '@/design-system/components/exam';
 import type { Answer, ExamFeedback } from '@/design-system/components/exam/exam.types';
-// Custom quiz styling - using Figma design
 import { getProjectById } from '@/data/mockProjects';
-import type { Creation } from '@/data/mockProjects';
+import type { Creation as OldCreation } from '@/data/mockProjects';
+import type { Source, Creation, Exam, CreationsViewMode, SourceRecommendation } from '@/types/course';
+import { getRecommendedDocs } from '@/lib/mockData';
 import styles from './page.module.css';
 
 export default function ProjectDetailPage(): JSX.Element {
@@ -24,8 +27,6 @@ export default function ProjectDetailPage(): JSX.Element {
 
   const [leftSidebarOpen, setLeftSidebarOpen] = useState(true);
   const [leftSidebarCollapsed, setLeftSidebarCollapsed] = useState(false);
-  const [creationsPanelOpen, setCreationsPanelOpen] = useState(true);
-  const [sourcesPanelOpen, setSourcesPanelOpen] = useState(true);
   const [chatOpen, setChatOpen] = useState(false);
   const [content, setContent] = useState<string>('');
   const [renameModalOpen, setRenameModalOpen] = useState(false);
@@ -33,11 +34,78 @@ export default function ProjectDetailPage(): JSX.Element {
   const [projectEmoji, setProjectEmoji] = useState(project?.emoji || '📔');
   const [isFullscreen, setIsFullscreen] = useState(false);
   
+  // New panels state
+  const [creationsViewMode, setCreationsViewMode] = useState<CreationsViewMode>('recent');
+  const [activeSourceId, setActiveSourceId] = useState<string | undefined>();
+  const [activeCreationId, setActiveCreationId] = useState<string | undefined>();
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
+  
+  // Create artifact modal state
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [localCreations, setLocalCreations] = useState<Creation[]>([]);
+  
+  // Add exam modal state
+  const [isAddExamModalOpen, setIsAddExamModalOpen] = useState(false);
+  const [localExams, setLocalExams] = useState<Exam[]>([]);
+  
+  // Convert project data to new panel format
+  const sources: Source[] = useMemo(() => {
+    if (!project?.sources) return [];
+    return project.sources.map((source: any) => ({
+      id: source.id,
+      name: source.name,
+      addedAt: new Date(source.uploadedAt || Date.now()),
+      origin: 'upload' as const,
+      fileSize: source.size || 0,
+      fileType: source.type === 'pdf' ? 'pdf' as const : 'other' as const,
+      questionCount: Math.floor(Math.random() * 20) + 5,
+    }));
+  }, [project?.sources]);
+  
+  const creations: Creation[] = useMemo(() => {
+    const projectCreations = project?.creations ? project.creations.map((creation: OldCreation) => ({
+      id: creation.id,
+      type: creation.type as any,
+      title: creation.title,
+      createdAt: new Date(creation.createdAt || Date.now()),
+      data: { questions: [] },
+    })) as Creation[] : [];
+    
+    // Merge with local creations (newest first)
+    return [...localCreations, ...projectCreations].sort((a, b) => 
+      b.createdAt.getTime() - a.createdAt.getTime()
+    );
+  }, [project?.creations, localCreations]);
+  
+  const exams: Exam[] = useMemo(() => {
+    return [...localExams].sort((a, b) => {
+      if (!a.date || !b.date) return 0;
+      return new Date(a.date).getTime() - new Date(b.date).getTime();
+    });
+  }, [localExams]);
+  
+  const storageUsedMB = useMemo(() => {
+    return sources.reduce((sum, s) => sum + (s.fileSize || 0), 0) / (1024 * 1024);
+  }, [sources]);
+  
+  const recommendations: SourceRecommendation[] = useMemo(() => {
+    const currentIds = sources.filter(s => s.origin === 'studocu').map(s => s.id);
+    const recommended = getRecommendedDocs(currentIds, projectTitle);
+    return recommended.map(doc => ({
+      id: doc.id,
+      name: doc.name,
+      downloads: doc.downloads,
+      unlocks: doc.enables,
+    }));
+  }, [sources, projectTitle]);
+  
   // Chat state
   const [messages, setMessages] = useState<any[]>([]);
   const [aiTool, setAiTool] = useState<'ask-ai' | 'quiz' | 'summary' | 'flashcards'>('ask-ai');
   const [contextTags, setContextTags] = useState<any[]>([]);
   const [isLoadingAttachments, setIsLoadingAttachments] = useState(false);
+  const [isThinking, setIsThinking] = useState(false);
   
   // Action chips for tool switching - shown when user has content in conversation
   const [showActionChips, setShowActionChips] = useState(false);
@@ -47,7 +115,6 @@ export default function ProjectDetailPage(): JSX.Element {
   ] : [];
 
   // Quiz state
-  const [activeCreationId, setActiveCreationId] = useState<string | null>(null);
   const [selectedQuizAnswers, setSelectedQuizAnswers] = useState<(number | undefined)[]>([]);
   const [quizQuestionStates, setQuizQuestionStates] = useState<('unanswered' | 'correct' | 'incorrect' | 'skipped')[]>([]);
 
@@ -78,6 +145,84 @@ export default function ProjectDetailPage(): JSX.Element {
     setLeftSidebarCollapsed(false);
     setChatOpen(false);
   };
+  
+  // New panel handlers
+  const handleFilesSelected = (files: File[]): void => {
+    console.log('Files selected for upload:', files);
+    setIsUploading(true);
+    setUploadProgress(0);
+    
+    // Simulate upload progress
+    const interval = setInterval(() => {
+      setUploadProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setIsUploading(false);
+          return 100;
+        }
+        return prev + 10;
+      });
+    }, 200);
+  };
+  
+  const handleBrowseStudocu = (): void => {
+    console.log('Browse Studocu clicked');
+  };
+  
+  const handleSourceClick = (source: Source): void => {
+    console.log('Source clicked:', source);
+    setActiveSourceId(source.id);
+  };
+  
+  const handleSourceRemove = (sourceId: string): void => {
+    console.log('Remove source:', sourceId);
+  };
+  
+  const handleAddRecommendation = (recommendation: SourceRecommendation): void => {
+    console.log('Add recommendation:', recommendation);
+    // Create new source from recommendation
+    const newSource: Source = {
+      id: recommendation.id,
+      name: recommendation.name,
+      addedAt: new Date(),
+      origin: 'studocu',
+      fileType: 'pdf', // Default for Studocu docs
+      questionCount: 0, // Will be AI-estimated after upload
+      downloads: recommendation.downloads,
+    };
+    // In a real app, this would add to the actual sources state
+    // For now, just log the action
+  };
+  
+  const handleCreateNew = (): void => {
+    setIsCreateModalOpen(true);
+  };
+  
+  const handleCreateArtifact = (artifact: Creation): void => {
+    console.log('Artifact created:', artifact);
+    setLocalCreations(prev => [artifact, ...prev]);
+    setActiveCreationId(artifact.id);
+    setIsCreateModalOpen(false);
+  };
+  
+  const handleCreationDelete = (creation: Creation): void => {
+    console.log('Delete creation:', creation);
+    setLocalCreations(prev => prev.filter(c => c.id !== creation.id));
+  };
+  
+  const handleAddExam = (): void => {
+    setIsAddExamModalOpen(true);
+  };
+  
+  const handleCreateExam = (exam: Omit<Exam, 'id' | 'createdAt'>): void => {
+    const newExam: Exam = {
+      ...exam,
+      id: `exam-${Date.now()}`,
+      createdAt: new Date(),
+    };
+    setLocalExams(prev => [...prev, newExam]);
+    setIsAddExamModalOpen(false);
+  };
 
   const handleExpandToggle = (): void => {
     setIsFullscreen(!isFullscreen);
@@ -94,8 +239,11 @@ export default function ProjectDetailPage(): JSX.Element {
     };
     
     setMessages(prev => [...prev, userMessage]);
+    setIsThinking(true);
 
-    // Simulate AI response based on tool variant
+    // Simulate AI response based on tool variant with variable delay
+    const responseDelay = Math.floor(Math.random() * 1500) + 1000; // 1-2.5s
+    
     setTimeout(() => {
       let aiResponse = '';
       let attachments: any[] | undefined = undefined;
@@ -160,10 +308,11 @@ Based on your project materials, here's what I can tell you:
       };
 
       setMessages(prev => [...prev, assistantMessage]);
+      setIsThinking(false);
 
       // Generate suggested actions based on context
       updateSuggestedActions();
-    }, 1000);
+    }, responseDelay);
   };
 
   const handleActionChipClick = (chipId: string): void => {
@@ -246,10 +395,11 @@ Based on your project materials, here's what I can tell you:
 
   const handleCreationClick = (creation: Creation): void => {
     setActiveCreationId(creation.id);
-    if (creation.type === 'quiz' && creation.quizData) {
+    const oldCreation = creation as any;
+    if (creation.type === 'quiz' && oldCreation.quizData) {
       // Initialize quiz state for scrollable all-questions view
-      setSelectedQuizAnswers(new Array(creation.quizData.questions.length).fill(undefined));
-      setQuizQuestionStates(new Array(creation.quizData.questions.length).fill('unanswered'));
+      setSelectedQuizAnswers(new Array(oldCreation.quizData.questions.length).fill(undefined));
+      setQuizQuestionStates(new Array(oldCreation.quizData.questions.length).fill('unanswered'));
     }
   };
 
@@ -445,94 +595,40 @@ Based on your project materials, here's what I can tell you:
       <div className={styles.mainContainer}>
         {/* Left Sidebar - Always use Sidebar component */}
         {leftSidebarOpen && !isFullscreen && (
-          <Sidebar 
-            isOpen={!leftSidebarCollapsed}
-            side="left"
-          >
+          <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: '16px', padding: '16px', overflow: 'hidden' }}>
             {/* Creations Panel */}
-            <CreationsPanel
-              isExpanded={leftSidebarCollapsed ? false : creationsPanelOpen}
-              onToggle={() => {
-                if (leftSidebarCollapsed) {
-                  handleCollapsedSidebarClick();
-                } else {
-                  setCreationsPanelOpen(!creationsPanelOpen);
-                }
-              }}
-              onGenerateClick={() => console.log('Generate new clicked')}
-            >
-              {/* Existing Creations */}
-              {project.creations.map((creation) => {
-                const getIcon = () => {
-                  if (creation.type === 'quiz') return 'fa-solid fa-circle-question';
-                  if (creation.type === 'summary') return 'fa-solid fa-pen-nib';
-                  if (creation.type === 'exam') return 'fa-solid fa-clipboard-check';
-                  return 'fa-solid fa-file';
-                };
-                
-                const getSubtitle = () => {
-                  const baseType = creation.type.charAt(0).toUpperCase() + creation.type.slice(1);
-                  if (creation.metadata?.score) {
-                    return `${baseType} • Score: ${creation.metadata.score}%`;
-                  }
-                  if (creation.metadata?.questionCount) {
-                    return `${baseType} • ${creation.metadata.questionCount} questions`;
-                  }
-                  return baseType;
-                };
-                
-                return (
-                  <SourceTile
-                    key={creation.id}
-                    title={creation.title}
-                    type="pdf"
-                    subtitle={getSubtitle()}
-                    icon={<i className={getIcon()} aria-hidden="true" />}
-                    state={activeCreationId === creation.id ? 'selected' : 'default'}
-                    onClick={() => handleCreationClick(creation)}
-                    onMoreClick={() => console.log('More options:', creation.id)}
-                  />
-                );
-              })}
-            </CreationsPanel>
+            <div style={{ flex: 1, minHeight: 0 }}>
+              <CreationsPanel
+                creations={creations}
+                exams={exams}
+                viewMode={creationsViewMode}
+                onViewModeChange={setCreationsViewMode}
+                onCreateNew={handleCreateNew}
+                activeCreationId={activeCreationId}
+                onCreationClick={handleCreationClick}
+                onCreationDelete={handleCreationDelete}
+                onAddExam={handleAddExam}
+              />
+            </div>
 
             {/* Sources Panel */}
-            <SourcesPanel
-              isExpanded={leftSidebarCollapsed ? false : sourcesPanelOpen}
-              onToggle={() => {
-                if (leftSidebarCollapsed) {
-                  handleCollapsedSidebarClick();
-                } else {
-                  setSourcesPanelOpen(!sourcesPanelOpen);
-                }
-              }}
-              onSearchClick={() => console.log('Search clicked')}
-              onFilterClick={() => console.log('Filter clicked')}
-              onAddClick={() => handleFileUpload([])}
-              onRecordClick={() => console.log('Record clicked')}
-            >
-              {/* Sources List */}
-              {project.sources.map((source) => {
-                const getSourceType = () => {
-                  if (source.type === 'pdf') return 'pdf';
-                  if (source.type === 'image') return 'image';
-                  if (source.type === 'recording') return 'audio';
-                  return 'pdf';
-                };
-                
-                return (
-                  <SourceTile
-                    key={source.id}
-                    title={source.name}
-                    type={getSourceType()}
-                    subtitle={`${source.size} • ${source.uploadedAt}`}
-                    onClick={() => console.log('Source clicked:', source.id)}
-                    onMoreClick={() => console.log('Source more:', source.id)}
-                  />
-                );
-              })}
-            </SourcesPanel>
-          </Sidebar>
+            <div style={{ flex: 1, minHeight: 0 }}>
+              <SourcesPanel
+                sources={sources}
+                recommendations={recommendations}
+                activeSourceId={activeSourceId}
+                onFilesSelected={handleFilesSelected}
+                onBrowseStudocu={handleBrowseStudocu}
+                onSourceClick={handleSourceClick}
+                onSourceRemove={handleSourceRemove}
+                onAddRecommendation={handleAddRecommendation}
+                isUploading={isUploading}
+                uploadProgress={uploadProgress}
+                storageUsedMB={storageUsedMB}
+                storageMaxMB={100}
+              />
+            </div>
+          </div>
         )}
 
         {/* Toggle button for left sidebar */}
@@ -942,6 +1038,7 @@ Based on your project materials, here's what I can tell you:
               suggestedActions={suggestedActions}
               onSendMessage={handleSendMessage}
               onActionClick={handleActionClick}
+              isThinking={isThinking}
               onAttach={() => {
                 setIsLoadingAttachments(true);
                 // Simulate file upload
@@ -985,13 +1082,7 @@ Based on your project materials, here's what I can tell you:
         )}
       </div>
 
-      {/* Floating Assistant Button */}
-      {!isFullscreen && (
-        <FloatingAssistantButton 
-          onClick={handleAssistantClick}
-          isOpen={chatOpen}
-        />
-      )}
+      {/* Note: FloatingAssistantButton removed - use TabbedSidebar pattern instead */}
 
       {/* Rename Project Modal */}
       <RenameProjectModal
@@ -1000,6 +1091,23 @@ Based on your project materials, here's what I can tell you:
         currentEmoji={projectEmoji}
         onRename={handleRename}
         onClose={() => setRenameModalOpen(false)}
+      />
+      
+      {/* Create Artifact Modal */}
+      <CreateArtifactModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        sources={sources}
+        exams={exams}
+        onCreateArtifact={handleCreateArtifact}
+      />
+      
+      {/* Add Exam Modal */}
+      <AddExamModal
+        isOpen={isAddExamModalOpen}
+        onClose={() => setIsAddExamModalOpen(false)}
+        existingExams={exams}
+        onAddExam={handleCreateExam}
       />
     </div>
   );

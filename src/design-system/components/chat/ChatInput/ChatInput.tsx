@@ -2,22 +2,20 @@
 
 import React, { useState, KeyboardEvent, useRef, useEffect } from 'react';
 import classNames from 'classnames';
-import { ChatInputProps, AITool } from './ChatInput.types';
-import { ContextMenu } from './ContextMenu';
-import type { MenuItem } from './ContextMenu.types';
-import { ActionChips } from './ActionChips';
+import { ChatInputProps } from './ChatInput.types';
+import { Spinner } from '@design-system/components/buttons/Spinner';
 import styles from './ChatInput.module.css';
 
 /**
- * ChatInput - Input field for chat messages
- * Supports multiple AI tool variants and states
+ * ChatInput - Redesigned input field for chat messages
+ * Follows Figma design with support for quiz, summary, and source context
  * 
  * @example
  * <ChatInput 
  *   placeholder="Ask about this project"
  *   onSubmit={handleSend}
- *   onAttach={handleAttach}
  *   aiTool="quiz"
+ *   sources={sources}
  * />
  */
 export const ChatInput: React.FC<ChatInputProps> = ({
@@ -25,34 +23,35 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   placeholder = 'Ask about this project',
   onChange,
   onSubmit,
-  onAttach,
-  onContext,
-  onCreate,
-  onActionChipClick,
+  onAddClick,
+  onContextClick,
+  onCreateClick,
+  onSourceToggle,
   isDisabled = false,
-  canSend: controlledCanSend,
+  isProcessing = false,
   maxLength,
   aiTool = 'ask-ai',
-  contextTags = [],
-  actionChips = [],
-  isLoadingAttachments = false,
+  sources = [],
+  showContextMenu = false,
+  attachments = [],
   className,
 }) => {
   const [internalValue, setInternalValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
-  const [showAttachMenu, setShowAttachMenu] = useState(false);
-  const [showContextMenu, setShowContextMenu] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   
   // Use controlled value if provided, otherwise use internal state
   const value = controlledValue !== undefined ? controlledValue : internalValue;
-  const canSend = controlledCanSend !== undefined ? controlledCanSend : value.trim().length > 0;
-
+  const canSend = value.trim().length > 0 && !isProcessing;
+  const hasContent = value.length > 0 || attachments.length > 0;
+  const isInputDisabled = isDisabled || isProcessing;
+  
   // Auto-resize textarea
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.style.height = 'auto';
-      inputRef.current.style.height = `${Math.min(inputRef.current.scrollHeight, 120)}px`;
+      const newHeight = Math.min(inputRef.current.scrollHeight, 250);
+      inputRef.current.style.height = `${newHeight}px`;
     }
   }, [value]);
 
@@ -65,7 +64,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   };
 
   const handleSubmit = (): void => {
-    if (canSend && !isDisabled) {
+    if (canSend && !isInputDisabled) {
       onSubmit?.();
       if (controlledValue === undefined) {
         setInternalValue('');
@@ -80,204 +79,157 @@ export const ChatInput: React.FC<ChatInputProps> = ({
     }
   };
 
-  // Get rich placeholder parts for formatted display
-  const getPlaceholderParts = (): { before?: string; tool?: string; after?: string } | null => {
+  // Get placeholder content based on AI tool
+  const getPlaceholderContent = (): React.ReactNode => {
     if (aiTool === 'quiz') {
-      return { before: 'Generate a ', tool: 'Quiz', after: ' about this content' };
+      return (
+        <>
+          <span className={styles.placeholderRegular}>Generate a </span>
+          <span className={styles.placeholderBold}>Quiz</span>
+          <span className={styles.placeholderRegular}> about this content</span>
+        </>
+      );
     }
     if (aiTool === 'summary') {
-      return { before: 'Generate a ', tool: 'Summary', after: ' of this content' };
+      return (
+        <>
+          <span className={styles.placeholderRegular}>Generate a </span>
+          <span className={styles.placeholderBold}>Summary</span>
+          <span className={styles.placeholderRegular}> of this content</span>
+        </>
+      );
     }
-    if (aiTool === 'flashcards') {
-      return { tool: 'flashcards', after: ' about this content' };
+    if (aiTool === 'create') {
+      return (
+        <>
+          <span className={styles.placeholderBold}>/Quiz</span>
+          <span className={styles.placeholderRegular}> about </span>
+          <span className={styles.placeholderBold}>@2 sources</span>
+        </>
+      );
     }
-    return null;
+    return placeholder;
   };
 
-  // Show context/create buttons when focused or has content
-  const showActionButtons = isFocused || value.length > 0 || contextTags.length > 0;
-  
-  // Show custom placeholder when empty and not focused on typing
-  const showCustomPlaceholder = value.length === 0 && getPlaceholderParts() !== null;
-
-  // Menu items for attach button
-  const attachMenuItems: MenuItem[] = [
-    { id: 'recent', label: 'Recent materials', icon: 'fa-solid fa-clock-rotate-left', hasSubmenu: true },
-    { id: 'screen', label: 'Screen Capture', icon: 'fa-solid fa-camera' },
-    { id: 'upload', label: 'Upload file from computer', icon: 'fa-solid fa-arrow-up-from-bracket' },
-    { id: 'audio', label: 'Audio/Voice recording', icon: 'fa-solid fa-microphone' },
-  ];
-
-  // Menu items for context button
-  const contextMenuItems: MenuItem[] = [
-    { id: 'recent', label: 'Recent materials', icon: 'fa-solid fa-clock-rotate-left', hasSubmenu: true },
-    { id: 'screen', label: 'Screen Capture', icon: 'fa-solid fa-camera' },
-    { id: 'upload', label: 'Upload file from computer', icon: 'fa-solid fa-arrow-up-from-bracket' },
-    { id: 'audio', label: 'Audio/Voice recording', icon: 'fa-solid fa-microphone' },
-  ];
-
-  const handleMenuSelect = (itemId: string) => {
-    console.log('Menu item selected:', itemId);
-    // Handle menu selection
-    if (itemId === 'upload' && onAttach) {
-      onAttach();
-    }
-  };
+  const showCustomPlaceholder = value.length === 0 && aiTool !== 'ask-ai';
+  const isActive = isFocused || hasContent;
 
   return (
     <div 
       className={classNames(
         styles.wrapper, 
-        isFocused && styles.focused,
-        aiTool !== 'ask-ai' && styles[`tool-${aiTool}`],
+        isActive && styles.active,
+        hasContent && styles.hasContent,
+        attachments.length > 0 && styles.hasAttachments,
+        isProcessing && styles.processing,
         className
       )}
     >
-      {/* Action chips for quick tool switching */}
-      {actionChips.length > 0 && (
-        <ActionChips chips={actionChips} onSelect={onActionChipClick || (() => {})} />
-      )}
-
-      <div className={styles.inputSection}>
-        {/* Context Tags */}
-        {contextTags.length > 0 && (
-          <div className={styles.contextTags}>
-            {contextTags.map((tag) => (
-              <div key={tag.id} className={styles.contextTag}>
-                {tag.icon && <i className={tag.icon} />}
-                <span>{tag.label}</span>
-                {tag.onRemove && (
-                  <button 
-                    className={styles.removeTag}
-                    onClick={tag.onRemove}
-                    aria-label={`Remove ${tag.label}`}
-                  >
-                    <i className="fa-solid fa-times" />
-                  </button>
+      {/* Attachments */}
+      {attachments.length > 0 && (
+        <div className={styles.attachments}>
+          {attachments.map((attachment) => (
+            <div key={attachment.id} className={styles.attachment}>
+              <div className={styles.attachmentPreview}>
+                {attachment.isLoading && (
+                  <div className={styles.loadingCircular}>
+                    <div className={styles.loadingRing} />
+                  </div>
                 )}
               </div>
-            ))}
+              <button
+                className={styles.removeAttachment}
+                onClick={attachment.onRemove}
+                aria-label="Remove attachment"
+              >
+                <i className="fa-solid fa-xmark" />
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Chat Section */}
+      <div className={styles.chatSection}>
+        {/* Custom Placeholder */}
+        {showCustomPlaceholder && (
+          <div 
+            className={styles.customPlaceholder} 
+            onClick={() => inputRef.current?.focus()}
+          >
+            {getPlaceholderContent()}
           </div>
         )}
+        
+        {/* Text Input */}
+        <textarea
+          ref={inputRef}
+          className={styles.input}
+          value={value}
+          placeholder={aiTool === 'ask-ai' ? placeholder : ''}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          disabled={isInputDisabled}
+          maxLength={maxLength}
+          rows={1}
+          aria-label="Chat message input"
+        />
 
-        {/* Text Input Container with Custom Placeholder */}
-        <div className={styles.inputWrapper}>
-          {/* Custom Rich Placeholder */}
-          {showCustomPlaceholder && (
-            <div className={styles.customPlaceholder} onClick={() => inputRef.current?.focus()}>
-              {(() => {
-                const parts = getPlaceholderParts();
-                if (!parts) return null;
-                return (
-                  <>
-                    {parts.before && <span className={styles.placeholderRegular}>{parts.before}</span>}
-                    {parts.tool && <span className={styles.placeholderBold}>{parts.tool}</span>}
-                    {parts.after && <span className={styles.placeholderRegular}>{parts.after}</span>}
-                  </>
-                );
-              })()}
-            </div>
-          )}
-          
-          {/* Text Input */}
-          <textarea
-            ref={inputRef}
-            className={styles.input}
-            value={value}
-            placeholder={aiTool === 'ask-ai' ? placeholder : ''}
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-            disabled={isDisabled}
-            maxLength={maxLength}
-            rows={1}
-            aria-label="Chat message input"
-          />
-        </div>
+        {/* Scrollbar for long text */}
+        {value.length > 150 && (
+          <div className={styles.scrollbar}>
+            <div className={styles.scrollbarThumb} />
+          </div>
+        )}
       </div>
       
+      {/* Button Group */}
       <div className={styles.buttonGroup}>
-        {/* Left buttons */}
-        <div className={styles.leftButtons}>
-          <div className={styles.buttonWrapper}>
-            <button
-              type="button"
-              className={classNames(
-                styles.button, 
-                styles.attachButton,
-                showAttachMenu && styles.active
-              )}
-              onClick={() => setShowAttachMenu(!showAttachMenu)}
-              disabled={isDisabled}
-              aria-label="Attach file"
-              aria-expanded={showAttachMenu}
-            >
-              <i className="fa-solid fa-plus" aria-hidden="true" />
-            </button>
-            {showAttachMenu && (
-              <ContextMenu
-                items={attachMenuItems}
-                onClose={() => setShowAttachMenu(false)}
-                onSelect={handleMenuSelect}
-                position="bottom-left"
-              />
+        {/* Add button (always visible) */}
+        <button
+          type="button"
+          className={styles.addButton}
+          onClick={onAddClick}
+          disabled={isInputDisabled}
+          aria-label="Add attachments"
+        >
+          <i className="fa-solid fa-plus" aria-hidden="true" />
+        </button>
+
+        {/* Context and Create buttons (show when focused or has content) */}
+        {isActive && (
+          <>
+            {onContextClick && (
+              <button
+                type="button"
+                className={classNames(
+                  styles.actionButton,
+                  showContextMenu && styles.active
+                )}
+                onClick={onContextClick}
+                disabled={isInputDisabled}
+                aria-label="Context"
+              >
+                <i className="fa-solid fa-sparkles" aria-hidden="true" />
+                <span>Context</span>
+              </button>
             )}
-          </div>
-
-          {/* Context and Create buttons */}
-          {showActionButtons && (
-            <>
-              {onContext && (
-                <div className={styles.buttonWrapper}>
-                  <button
-                    type="button"
-                    className={classNames(
-                      styles.button, 
-                      styles.actionButton,
-                      showContextMenu && styles.active
-                    )}
-                    onClick={() => setShowContextMenu(!showContextMenu)}
-                    disabled={isDisabled}
-                    aria-label="Context"
-                    aria-expanded={showContextMenu}
-                  >
-                    <i className="fa-solid fa-sparkles" aria-hidden="true" />
-                    <span>Context</span>
-                  </button>
-                  {showContextMenu && (
-                    <ContextMenu
-                      items={contextMenuItems}
-                      onClose={() => setShowContextMenu(false)}
-                      onSelect={handleMenuSelect}
-                      position="bottom-left"
-                    />
-                  )}
-                </div>
-              )}
-              {onCreate && (
-                <button
-                  type="button"
-                  className={classNames(styles.button, styles.actionButton)}
-                  onClick={onCreate}
-                  disabled={isDisabled}
-                  aria-label="Create"
-                >
-                  <i className="fa-solid fa-wand-magic-sparkles" aria-hidden="true" />
-                  <span>Create</span>
-                </button>
-              )}
-            </>
-          )}
-        </div>
-
-        {/* Loading state */}
-        {isLoadingAttachments && (
-          <div className={styles.loadingDots}>
-            <span className={styles.dot} />
-            <span className={styles.dot} />
-            <span className={styles.dot} />
-          </div>
+            
+            {onCreateClick && (
+              <button
+                type="button"
+                className={styles.actionButton}
+                onClick={onCreateClick}
+                disabled={isInputDisabled || !hasContent}
+                aria-label="Create"
+              >
+                <i className="fa-solid fa-wand-magic-sparkles" aria-hidden="true" />
+                <span>Create</span>
+              </button>
+            )}
+          </>
         )}
         
         <div className={styles.spacer} />
@@ -286,17 +238,64 @@ export const ChatInput: React.FC<ChatInputProps> = ({
         <button
           type="button"
           className={classNames(
-            styles.button,
             styles.sendButton,
-            !canSend && styles.disabled
+            canSend && styles.active,
+            isProcessing && styles.processing
           )}
           onClick={handleSubmit}
-          disabled={!canSend || isDisabled}
-          aria-label="Send message"
+          disabled={!canSend || isInputDisabled}
+          aria-label={isProcessing ? 'Processing message' : 'Send message'}
         >
-          <i className="fa-solid fa-arrow-up" aria-hidden="true" />
+          {isProcessing ? (
+            <Spinner size="small" ariaLabel="Processing" />
+          ) : (
+            <i className="fa-solid fa-arrow-up" aria-hidden="true" />
+          )}
         </button>
       </div>
+
+      {/* Context Menu (Sources Dropdown) */}
+      {showContextMenu && sources.length > 0 && (
+        <div className={styles.contextDropdown}>
+          <div className={styles.sourcesList}>
+            <div className={styles.sourceItem}>
+              <input
+                type="checkbox"
+                id="source-all"
+                checked={sources.every((s) => s.selected)}
+                onChange={() => {
+                  sources.forEach((s) => onSourceToggle?.(s.id));
+                }}
+              />
+              <label htmlFor="source-all" className={styles.sourceLabel}>
+                <span className={styles.sourceName}>All sources</span>
+              </label>
+            </div>
+            
+            {sources.map((source) => (
+              <div key={source.id} className={styles.sourceItem}>
+                <input
+                  type="checkbox"
+                  id={`source-${source.id}`}
+                  checked={source.selected}
+                  onChange={() => onSourceToggle?.(source.id)}
+                />
+                <label htmlFor={`source-${source.id}`} className={styles.sourceLabel}>
+                  <i className={classNames(
+                    'fa-duotone',
+                    source.type === 'pdf' && 'fa-file-pdf',
+                    source.type === 'text' && 'fa-file-lines',
+                    source.type === 'slides' && 'fa-presentation',
+                    source.type === 'audio' && 'fa-microphone',
+                    source.type === 'video' && 'fa-video'
+                  )} />
+                  <span className={styles.sourceName}>{source.name}</span>
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

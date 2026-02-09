@@ -1,0 +1,191 @@
+/**
+ * SourceCard Styles
+ * 
+ * Timeline card for individual source items.
+ */
+
+/* ===== BASE STYLES ===== */
+.card {
+  /* Layout */
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-3);
+  
+  /* Spacing */
+  padding: var(--spacing-3);
+  
+  /* Colors */
+  background-color: transparent;
+  color: var(--color-text-primary);
+  
+  /* Borders */
+  border-radius: var(--border-radius-md);
+  
+  /* Effects */
+  cursor: pointer;
+  transition: all var(--transition-base);
+  
+  /* Group for hover states */
+  position: relative;
+}
+
+.card:hover {
+  background-color: var(--color-surface-secondary);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ===== STATES ===== */
+.card.isActive {
+  background-color: var(--color-primary-50);
+  box-shadow: 0 0 0 1px var(--color-primary-200);
+}
+
+[data-theme="dark"] .card.isActive {
+  background-color: var(--color-primary-900);
+  box-shadow: 0 0 0 1px var(--color-primary-700);
+}
+
+/* ===== ICON ===== */
+.icon {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  
+  /* Size */
+  width: 20px;
+  height: 20px;
+  
+  /* Typography */
+  font-size: var(--font-size-lg);
+  line-height: 1;
+  
+  /* Positioning */
+  margin-top: 2px;
+}
+
+/* ===== CONTENT ===== */
+.content {
+  /* Layout */
+  flex: 1;
+  min-width: 0;
+}
+
+.header {
+  /* Layout */
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-2);
+  
+  /* Spacing */
+  margin-bottom: var(--spacing-1);
+}
+
+.name {
+  /* Layout */
+  flex: 1;
+  min-width: 0;
+  
+  /* Typography */
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-sm);
+  color: var(--color-text-primary);
+  
+  /* Truncation */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.date {
+  /* Layout */
+  flex-shrink: 0;
+  
+  /* Typography */
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-subtle);
+}
+
+.secondary {
+  /* Typography */
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-xs);
+  color: var(--color-text-secondary);
+}
+
+/* Highlight for +X questions */
+.secondary.highlight {
+  color: var(--color-success);
+  font-weight: var(--font-weight-medium);
+}
+
+/* ===== REMOVE BUTTON ===== */
+.removeButton {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  
+  /* Size */
+  width: 24px;
+  height: 24px;
+  
+  /* Colors */
+  background-color: transparent;
+  color: var(--color-text-subtle);
+  
+  /* Borders */
+  border: none;
+  border-radius: var(--border-radius-sm);
+  
+  /* Effects */
+  cursor: pointer;
+  opacity: 0;
+  transition: all var(--transition-fast);
+}
+
+.card:hover .removeButton {
+  opacity: 1;
+}
+
+.removeButton:hover {
+  background-color: var(--color-surface-elevated);
+  color: var(--color-text-primary);
+}
+
+.removeButton:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .card {
+    padding: var(--spacing-2);
+    gap: var(--spacing-2);
+  }
+  
+  .removeButton {
+    /* Always show on mobile */
+    opacity: 1;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .removeButton {
+    transition: none;
+  }
+}

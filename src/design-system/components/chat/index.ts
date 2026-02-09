@@ -8,11 +8,12 @@ export type { ChatMessageProps, MessageSender } from './ChatMessage';
 
 // ChatInput
 export { ChatInput } from './ChatInput';
-export type { ChatInputProps, ContextTag, AITool, ActionChip } from './ChatInput/ChatInput.types';
-export { ContextMenu } from './ChatInput/ContextMenu';
-export type { ContextMenuProps, MenuItem } from './ChatInput/ContextMenu.types';
-export { ActionChips } from './ChatInput/ActionChips';
-export type { ActionChipsProps } from './ChatInput/ActionChips.types';
+export type { 
+  ChatInputProps, 
+  AITool, 
+  SourceItem, 
+  AttachmentItem 
+} from './ChatInput/ChatInput.types';
 
 // FileAttachment
 export { FileAttachment } from './FileAttachment';
@@ -21,5 +22,13 @@ export type { FileAttachmentProps, FileType } from './FileAttachment';
 // ActionButton
 export { ActionButton } from './ActionButton';
 export type { ActionButtonProps } from './ActionButton';
+
+// CourseInfoCard
+export { CourseInfoCard } from './CourseInfoCard';
+export type { CourseInfoCardProps } from './CourseInfoCard';
+
+// TypingIndicator
+export { TypingIndicator } from './TypingIndicator';
+export type { TypingIndicatorProps } from './TypingIndicator';
 
 

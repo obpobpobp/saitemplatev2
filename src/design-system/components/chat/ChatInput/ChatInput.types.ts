@@ -1,25 +1,26 @@
 /**
  * AI Tool variants
  */
-export type AITool = 'ask-ai' | 'quiz' | 'summary' | 'flashcards';
+export type AITool = 'ask-ai' | 'quiz' | 'summary' | 'create';
 
 /**
- * Context tag
+ * Source item for context selection
  */
-export interface ContextTag {
+export interface SourceItem {
   id: string;
-  label: string;
-  icon?: string;
-  onRemove?: () => void;
+  name: string;
+  type: 'pdf' | 'text' | 'slides' | 'audio' | 'video';
+  selected?: boolean;
 }
 
 /**
- * Action chip for quick actions
+ * Attachment item
  */
-export interface ActionChip {
+export interface AttachmentItem {
   id: string;
-  label: string;
-  icon?: string;
+  name?: string;
+  isLoading?: boolean;
+  onRemove?: () => void;
 }
 
 /**
@@ -47,19 +48,24 @@ export interface ChatInputProps {
   onSubmit?: () => void;
   
   /**
-   * Attachment button click handler
+   * Add button click handler (attachments menu)
    */
-  onAttach?: () => void;
+  onAddClick?: () => void;
   
   /**
    * Context button click handler
    */
-  onContext?: () => void;
+  onContextClick?: () => void;
   
   /**
    * Create button click handler
    */
-  onCreate?: () => void;
+  onCreateClick?: () => void;
+  
+  /**
+   * Source selection handler
+   */
+  onSourceToggle?: (sourceId: string) => void;
   
   /**
    * Whether input is disabled
@@ -67,9 +73,11 @@ export interface ChatInputProps {
   isDisabled?: boolean;
   
   /**
-   * Whether send button is disabled (e.g., empty input)
+   * Whether the assistant is processing/thinking
+   * Shows loading spinner on send button and disables input
+   * @default false
    */
-  canSend?: boolean;
+  isProcessing?: boolean;
   
   /**
    * Maximum length of input
@@ -82,24 +90,19 @@ export interface ChatInputProps {
   aiTool?: AITool;
   
   /**
-   * Context tags to display
+   * Available sources for context
    */
-  contextTags?: ContextTag[];
+  sources?: SourceItem[];
   
   /**
-   * Whether attachments are loading
+   * Whether context menu is open
    */
-  isLoadingAttachments?: boolean;
+  showContextMenu?: boolean;
   
   /**
-   * Action chips to display
+   * Attachments to display
    */
-  actionChips?: ActionChip[];
-  
-  /**
-   * Action chip click handler
-   */
-  onActionChipClick?: (chipId: string) => void;
+  attachments?: AttachmentItem[];
   
   /**
    * Additional CSS class name

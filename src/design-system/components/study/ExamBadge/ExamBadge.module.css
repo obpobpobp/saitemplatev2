@@ -1,0 +1,102 @@
+/**
+ * ExamBadge Styles
+ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-primary-50);
+  color: var(--color-primary-700);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+  cursor: default;
+}
+
+[data-theme="dark"] .badge {
+  background-color: var(--color-primary-900);
+  color: var(--color-primary-100);
+}
+
+/* ===== CLICKABLE ===== */
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover {
+  background-color: var(--color-primary-100);
+  transform: translateY(-1px);
+}
+
+[data-theme="dark"] .clickable:hover {
+  background-color: var(--color-primary-800);
+}
+
+/* ===== SIZES ===== */
+.small {
+  height: 24px;
+  padding: var(--spacing-1) var(--spacing-2);
+  font-size: var(--font-size-xs);
+}
+
+.medium {
+  height: 32px;
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-sm);
+}
+
+/* ===== ICON ===== */
+.icon {
+  font-size: 10px;
+  opacity: 0.8;
+}
+
+.medium .icon {
+  font-size: 12px;
+}
+
+/* ===== TEXT ===== */
+.text {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.separator {
+  opacity: 0.5;
+}
+
+.days {
+  font-weight: var(--font-weight-semibold);
+}
+
+.weight {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 4px;
+  margin-left: var(--spacing-1);
+  border-radius: 4px;
+  background-color: var(--color-primary-100);
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+}
+
+[data-theme="dark"] .weight {
+  background-color: var(--color-primary-800);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .badge {
+    font-size: 11px;
+  }
+  
+  .weight {
+    font-size: 9px;
+  }
+}

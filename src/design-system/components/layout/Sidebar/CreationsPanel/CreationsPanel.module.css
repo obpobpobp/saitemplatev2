@@ -1,11 +1,75 @@
-/* CreationsPanel specific styles */
+/**
+ * Component: CreationsPanel
+ * Simplified panel for tabbed sidebar (no header)
+ */
 
-/* Footer buttons layout - single button full width */
+/* ===== BASE STYLES ===== */
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  gap: 8px;
+  overflow: hidden;
+}
+
+/* ===== CONTENT AREA ===== */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+}
+
+/* Custom scrollbar */
+.content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--border-radius-pill);
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-strong);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  display: flex;
+  gap: var(--spacing-sm);
+  width: 100%;
+  flex-shrink: 0;
+}
+
+/* Legacy styles (keep for backward compatibility) */
 .footerButtons {
   display: flex;
+  gap: 8px;
   width: 100%;
 }
 
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .panel {
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+  }
+}
 
-
-
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    transition: none;
+  }
+}

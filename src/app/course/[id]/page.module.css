@@ -1,0 +1,181 @@
+/**
+ * Course Workspace Page Styles
+ * Adapted from project page styles
+ */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #F5F7FA; /* Bento background color */
+  overflow: hidden;
+}
+
+.headerContainer {
+  background: transparent;
+  padding: 8px 8px 0 8px; /* Bento style: 8px from edges, no bottom padding */
+  flex-shrink: 0;
+}
+
+.mainContainer {
+  display: flex;
+  flex: 1;
+  gap: 8px; /* Bento style: 8px between sidebar and content */
+  padding: 8px; /* Bento style: 8px from viewport edges */
+  overflow: hidden;
+  min-height: 0;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 20px;
+  background: #FFFFFF;
+  border-radius: 20px;
+}
+
+.examCountdownWrapper {
+  margin-bottom: var(--spacing-lg);
+}
+
+.canvasPlaceholder {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-20);
+  text-align: center;
+  background: var(--color-surface-primary);
+  border-radius: var(--border-radius-lg);
+  border: 2px dashed var(--color-border);
+}
+
+.canvasPlaceholder h2 {
+  margin: 0;
+  font-size: var(--font-size-2xl);
+  color: var(--color-text-primary);
+}
+
+.canvasPlaceholder p {
+  margin: 0;
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+}
+
+.hint {
+  font-size: var(--font-size-sm) !important;
+  color: var(--color-text-disabled) !important;
+}
+
+.chatContainer {
+  width: 400px;
+  border-left: var(--border-width-thin) solid var(--color-border);
+  background: var(--color-surface-primary);
+}
+
+.emptyPanel {
+  padding: var(--spacing-lg);
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.emptyPanel p {
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.sourceSection {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-surface-secondary);
+  border-bottom: var(--border-width-thin) solid var(--color-border);
+}
+
+.sourceSectionTitle {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Loading state */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--color-background);
+}
+
+.spinner {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+}
+
+/* Not found state */
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  min-height: 100vh;
+  padding: var(--spacing-2xl);
+  text-align: center;
+}
+
+.notFound h1 {
+  margin: 0;
+  font-size: var(--font-size-3xl);
+  color: var(--color-text-primary);
+}
+
+.notFound p {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  max-width: 500px;
+}
+
+.backButton {
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: white;
+  background: var(--color-primary);
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.backButton:hover {
+  background: var(--color-interactive-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .mainContainer {
+    flex-direction: column;
+  }
+  
+  .content {
+    padding: var(--spacing-md);
+  }
+  
+  .chatContainer {
+    width: 100%;
+    border-left: none;
+    border-top: var(--border-width-thin) solid var(--color-border);
+  }
+  
+  .canvasPlaceholder {
+    padding: var(--spacing-10);
+  }
+}

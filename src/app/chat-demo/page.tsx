@@ -11,8 +11,7 @@ import styles from './page.module.css';
  */
 export default function ChatDemoPage(): JSX.Element {
   const [isOpen, setIsOpen] = useState(true);
-  
-  const messages: Message[] = [
+  const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
       content: `I will prepared a mock exam for you. It covered these topics from this course. I have the syllabus on Studocu, you gave me this, and I will use other student's mock exams from this same course. Do you want me to adjust anything before starting? `,
@@ -31,10 +30,35 @@ export default function ChatDemoPage(): JSX.Element {
         },
       ],
     },
-  ];
+  ]);
+  const [isThinking, setIsThinking] = useState(false);
 
   const handleSendMessage = (message: string): void => {
-    console.log('Send message:', message);
+    if (!message.trim()) return;
+    
+    // Add user message
+    const userMessage: Message = {
+      role: 'user',
+      content: message,
+      timestamp: new Date(),
+    };
+    
+    setMessages(prev => [...prev, userMessage]);
+    setIsThinking(true);
+    
+    // Simulate AI response with variable delay
+    const responseDelay = Math.floor(Math.random() * 1500) + 1000; // 1-2.5s
+    
+    setTimeout(() => {
+      const aiMessage: Message = {
+        role: 'assistant',
+        content: `Here's a helpful response to your question: "${message}"\n\nI can help you with study materials, creating quizzes, generating summaries, or answering questions about your course content. What would you like to focus on?`,
+        timestamp: new Date(),
+      };
+      
+      setMessages(prev => [...prev, aiMessage]);
+      setIsThinking(false);
+    }, responseDelay);
   };
 
   const handleActionClick = (action: string): void => {
@@ -77,32 +101,33 @@ export default function ChatDemoPage(): JSX.Element {
               suggestedActions={suggestedActions}
               onSendMessage={handleSendMessage}
               onActionClick={handleActionClick}
-              onAttach={() => console.log('Attach clicked')}
+              onAddClick={() => console.log('Add clicked')}
               inline={true}
+              isThinking={isThinking}
             />
           </div>
 
           <div className={styles.infoSection}>
             <div className={styles.infoCard}>
-              <h2 className={styles.infoTitle}>✅ Input Variants</h2>
+              <h2 className={styles.infoTitle}>✨ Animation Features</h2>
               <ul className={styles.featureList}>
                 <li>
-                  <strong>States:</strong> Default, Hover, Active, Filled
+                  <strong>Typing Effect:</strong> Character-by-character text streaming
                 </li>
                 <li>
-                  <strong>AI Tools:</strong> Quiz, Summary, Flashcards (purple text)
+                  <strong>Thinking State:</strong> Avatar pulse animation while processing
                 </li>
                 <li>
-                  <strong>Features:</strong> Context tags, Action buttons, Loading
+                  <strong>Message Animations:</strong> Subtle fade + slide up on appearance
                 </li>
                 <li>
-                  <strong>Interactions:</strong> Focus state with blue border
+                  <strong>Input States:</strong> Processing/disabled with visual feedback
                 </li>
                 <li>
-                  <strong>Typography:</strong> 16px body, 14px labels
+                  <strong>Micro-interactions:</strong> Hover effects, cursor blink
                 </li>
                 <li>
-                  <strong>Buttons:</strong> 32px height with proper icons
+                  <strong>Accessibility:</strong> Reduced motion support
                 </li>
               </ul>
             </div>
@@ -119,19 +144,19 @@ export default function ChatDemoPage(): JSX.Element {
             </div>
 
             <div className={styles.infoCard}>
-              <h2 className={styles.infoTitle}>📦 Updated Components</h2>
+              <h2 className={styles.infoTitle}>📦 New Components</h2>
               <ul className={styles.shortcutList}>
                 <li>
-                  <code>ChatWindow</code> - Stacked attachments layout
+                  <code>TypingIndicator</code> - Pulsing avatar with thinking state
                 </li>
                 <li>
-                  <code>FileAttachment</code> - Icon sticker with rotation
+                  <code>useTypingEffect</code> - Custom hook for text streaming
                 </li>
                 <li>
-                  <code>ChatInput</code> - Exact Figma dimensions
+                  <code>ChatMessage</code> - Enhanced with typing animation
                 </li>
                 <li>
-                  <code>ActionButton</code> - Proper sizing & spacing
+                  <code>ChatInput</code> - Processing state with spinner
                 </li>
               </ul>
             </div>

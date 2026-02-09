@@ -1,0 +1,248 @@
+/**
+ * StudyGoals Component Styles
+ * Comprehensive example of ExamCountdown + ExamDatePicker integration
+ */
+
+/* ===== CONTAINER ===== */
+.container {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5);
+  
+  /* Spacing */
+  padding: var(--spacing-6);
+  
+  /* Colors */
+  background: var(--color-surface-primary);
+  border: var(--border-width-thin) solid var(--color-border);
+  
+  /* Borders */
+  border-radius: var(--border-radius-lg);
+  
+  /* Effects */
+  box-shadow: var(--shadow-md);
+}
+
+/* ===== HEADER ===== */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.title {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-title);
+  margin: 0;
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: var(--line-height-relaxed);
+}
+
+/* ===== CONTENT ===== */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.pickerWrapper {
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  
+  /* Spacing */
+  padding: var(--spacing-4);
+  
+  /* Colors */
+  background: var(--color-background-secondary);
+  border: var(--border-width-thin) solid var(--color-border);
+  
+  /* Borders */
+  border-radius: var(--border-radius-md);
+  
+  /* Effects */
+  animation: slideDown var(--transition-base);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.doneButton {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  align-self: flex-end;
+  
+  /* Spacing */
+  padding: var(--spacing-2) var(--spacing-4);
+  
+  /* Colors */
+  background: var(--color-primary);
+  color: var(--color-surface-primary);
+  border: none;
+  
+  /* Typography */
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  
+  /* Borders */
+  border-radius: var(--border-radius-sm);
+  
+  /* Effects */
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.doneButton:hover {
+  background: var(--color-primary-600);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.doneButton:active {
+  transform: translateY(0);
+}
+
+/* ===== STUDY TIPS ===== */
+.tips {
+  /* Layout */
+  display: flex;
+  gap: var(--spacing-3);
+  
+  /* Spacing */
+  padding: var(--spacing-4);
+  
+  /* Colors */
+  background: linear-gradient(
+    135deg,
+    var(--color-info-50) 0%,
+    var(--color-info-100) 100%
+  );
+  border: var(--border-width-thin) solid var(--color-info-200);
+  
+  /* Borders */
+  border-radius: var(--border-radius-md);
+  
+  /* Effects */
+  animation: fadeIn var(--transition-base);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.tipIcon {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  
+  /* Sizing */
+  width: 32px;
+  height: 32px;
+  
+  /* Colors */
+  color: var(--color-info-700);
+  background: var(--color-surface-primary);
+  
+  /* Borders */
+  border-radius: var(--border-radius-sm);
+  
+  /* Typography */
+  font-size: var(--font-size-md);
+}
+
+.tipContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.tipTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-info-800);
+  margin: 0;
+  line-height: var(--line-height-tight);
+}
+
+.tipText {
+  font-size: var(--font-size-sm);
+  color: var(--color-info-700);
+  margin: 0;
+  line-height: var(--line-height-relaxed);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-4);
+    gap: var(--spacing-4);
+  }
+
+  .title {
+    font-size: var(--font-size-lg);
+  }
+
+  .pickerWrapper {
+    padding: var(--spacing-3);
+  }
+
+  .tips {
+    padding: var(--spacing-3);
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  .pickerWrapper,
+  .tips {
+    animation: none;
+  }
+  
+  .doneButton {
+    transition: none;
+  }
+}
+
+/* ===== DARK MODE ===== */
+[data-theme="dark"] .container {
+  box-shadow: var(--shadow-lg);
+}
+
+[data-theme="dark"] .pickerWrapper {
+  background: var(--color-surface-tertiary);
+}
+
+[data-theme="dark"] .tipIcon {
+  background: rgba(255, 255, 255, 0.05);
+}

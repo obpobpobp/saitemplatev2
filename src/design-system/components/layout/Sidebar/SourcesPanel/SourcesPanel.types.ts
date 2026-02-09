@@ -1,55 +1,58 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 /**
- * SourcesPanel component props
+ * Props for SourcesPanel component
+ * Organized with sections for recommendations, library, and uploads
  */
 export interface SourcesPanelProps {
   /**
-   * Panel content (source tiles)
+   * Studocu recommended documents (not yet added)
    */
-  children?: ReactNode;
+  studocuRecommendations?: ReactNode;
   
   /**
-   * Whether the panel is expanded (showing content)
-   * @default false
+   * Documents added from Studocu library
    */
-  isExpanded?: boolean;
+  studocuLibrary?: ReactNode;
   
   /**
-   * Whether the entire sidebar is collapsed (icon-only mode)
-   * Now automatically detected via context - no need to pass
-   * @deprecated Use context instead
-   * @default false
+   * User uploaded files
    */
-  isSidebarCollapsed?: boolean;
+  userUploads?: ReactNode;
   
   /**
-   * Toggle expansion handler
+   * Handler for "Add from Studocu" button
    */
-  onToggle?: () => void;
+  onAddFromStudocu?: () => void;
   
   /**
-   * Handler for search button click
+   * Handler for "Upload File" button
    */
-  onSearchClick?: () => void;
+  onUploadFile?: () => void;
   
   /**
-   * Handler for dropdown/filter button click
+   * Handler for clicking on a source
    */
-  onFilterClick?: () => void;
+  onSourceClick?: (sourceId: string) => void;
   
   /**
-   * Handler for Add button click in footer
-   */
-  onAddClick?: () => void;
-  
-  /**
-   * Handler for Record button click in footer
-   */
-  onRecordClick?: () => void;
-  
-  /**
-   * Additional CSS class name
+   * Additional CSS class
    */
   className?: string;
+  
+  // Legacy props for backward compatibility
+  /** @deprecated Use studocuLibrary and userUploads instead */
+  children?: ReactNode;
+  /** @deprecated Use onAddFromStudocu instead */
+  onAddClick?: () => void;
+  /** @deprecated No longer used */
+  onRecordClick?: () => void;
+  /** @deprecated No longer used */
+  onSearchClick?: () => void;
+  /** @deprecated No longer used */
+  onFilterClick?: () => void;
+  /** @deprecated No longer used in tabbed sidebar */
+  isExpanded?: boolean;
+  /** @deprecated No longer used in tabbed sidebar */
+  onToggle?: () => void;
 }

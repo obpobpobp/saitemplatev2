@@ -1,0 +1,292 @@
+/**
+ * CanvasSuggestions Component Styles
+ * 
+ * Applies cognitive load reduction principles:
+ * - Visual hierarchy (primary card larger, more prominent)
+ * - Progressive disclosure (simplified interface)
+ * - F-pattern layout (natural scanning)
+ * - Reduced cognitive load through clarity
+ */
+
+/* ===== CONTAINER ===== */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+  padding: var(--spacing-12);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ===== HEADER ===== */
+.header {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.title {
+  margin: 0 0 var(--spacing-sm) 0;
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+}
+
+.subtitle {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+}
+
+/* ===== SUGGESTIONS GRID ===== */
+.suggestions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-sm);
+  width: 100%;
+}
+
+/* ===== CARD BASE STYLES ===== */
+.card {
+  display: flex;
+  width: 100%;
+  padding: 0;
+  background: var(--color-surface-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: left;
+  position: relative;
+}
+
+.card:not(.locked):hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-sm);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* Subtle primary emphasis */
+.card.primary {
+  border-color: var(--color-border-strong);
+}
+
+.card.primary:hover {
+  border-color: var(--color-text-secondary);
+}
+
+.card.locked {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.card.locked:hover {
+  border-color: var(--color-border);
+  box-shadow: none;
+}
+
+/* ===== CARD CONTENT LAYOUT ===== */
+.cardContent {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  width: 100%;
+}
+
+.cardIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: var(--color-text-secondary);
+  font-size: 18px;
+}
+
+.card.primary .cardIcon {
+  color: var(--color-text-primary);
+  font-size: 20px;
+}
+
+/* ===== CARD TEXT CONTENT ===== */
+.cardText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  margin: 0;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+}
+
+.card.primary .cardTitle {
+  font-weight: var(--font-weight-bold);
+}
+
+.recommendedLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px var(--spacing-xs);
+  font-size: 10px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-xs);
+  white-space: nowrap;
+}
+
+.recommendedLabel i {
+  font-size: 9px;
+}
+
+.cardDescription {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+}
+
+/* ===== CARD INFO (METRICS & TOPICS) ===== */
+.cardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 2px;
+}
+
+.metricsRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.metricsRow i {
+  font-size: 11px;
+}
+
+.metrics {
+  font-weight: var(--font-weight-regular);
+}
+
+.topicsPreview {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.topicsPreview i {
+  font-size: 11px;
+}
+
+.topicsMore {
+  font-weight: var(--font-weight-medium);
+}
+
+/* ===== LOCK MESSAGE ===== */
+.lockMessage {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-disabled);
+  margin-top: 2px;
+}
+
+.lockMessage i {
+  font-size: 11px;
+}
+
+/* ===== CARD ACTION (ARROW INDICATOR) ===== */
+.cardAction {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+/* ===== HELP TEXT ===== */
+.helpText {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  margin: var(--spacing-sm) auto 0;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-sm);
+  max-width: 600px;
+}
+
+.helpText i {
+  font-size: 11px;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-md);
+    gap: var(--spacing-md);
+  }
+  
+  .title {
+    font-size: var(--font-size-xl);
+  }
+  
+  .subtitle {
+    font-size: var(--font-size-sm);
+  }
+
+  .cardContent {
+    padding: var(--spacing-sm);
+  }
+
+  .cardIcon {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+
+  .cardTitle {
+    font-size: var(--font-size-sm);
+  }
+
+  .cardAction {
+    display: none;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}

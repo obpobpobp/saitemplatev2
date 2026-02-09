@@ -2,31 +2,33 @@
 
 import React, { useState } from 'react';
 import { ChatInput } from '@/design-system/components/chat';
-import type { ContextTag } from '@/design-system/components/chat/ChatInput/ChatInput.types';
+import type { SourceItem, AttachmentItem } from '@/design-system/components/chat/ChatInput/ChatInput.types';
 import styles from './page.module.css';
 
 /**
  * ChatInput Demo Page
- * Showcases all the different states and variants of the ChatInput component
+ * Showcases all states and variants from Figma design
  */
 export default function InputDemoPage(): JSX.Element {
   const [defaultValue, setDefaultValue] = useState('');
   const [quizValue, setQuizValue] = useState('');
   const [summaryValue, setSummaryValue] = useState('');
-  const [flashcardsValue, setFlashcardsValue] = useState('');
+  const [createValue, setCreateValue] = useState('');
   const [filledValue, setFilledValue] = useState('What is phenomenology');
+  const [showContext, setShowContext] = useState(false);
 
-  const contextTags: ContextTag[] = [
-    {
-      id: '1',
-      label: 'Context',
-      icon: 'fa-solid fa-sparkles',
-    },
-    {
-      id: '2',
-      label: 'Create',
-      icon: 'fa-solid fa-wand-magic-sparkles',
-    },
+  const sources: SourceItem[] = [
+    { id: '1', name: 'Bauman_Liquid_modernity.pdf', type: 'pdf', selected: true },
+    { id: '2', name: 'Pasted text', type: 'text', selected: false },
+    { id: '3', name: 'Slides_from_last_class.pptx', type: 'slides', selected: false },
+    { id: '4', name: 'class-recording-monday.rec', type: 'audio', selected: false },
+    { id: '5', name: 'youtube-video.mov', type: 'video', selected: false },
+  ];
+
+  const attachments: AttachmentItem[] = [
+    { id: '1', isLoading: true, onRemove: () => console.log('Remove 1') },
+    { id: '2', isLoading: true, onRemove: () => console.log('Remove 2') },
+    { id: '3', isLoading: true, onRemove: () => console.log('Remove 3') },
   ];
 
   return (
@@ -44,35 +46,37 @@ export default function InputDemoPage(): JSX.Element {
         <div className={styles.demoGrid}>
           {/* Default State */}
           <div className={styles.demoItem}>
-            <h3 className={styles.demoTitle}>Default</h3>
+            <h3 className={styles.demoTitle}>Default - Ask AI</h3>
             <ChatInput
               value={defaultValue}
               onChange={setDefaultValue}
               onSubmit={() => console.log('Submit default')}
-              onAttach={() => console.log('Attach')}
+              onAddClick={() => console.log('Add')}
               placeholder="Ask about this project"
             />
           </div>
 
-          {/* Hover State - shown via CSS */}
+          {/* Hover State */}
           <div className={styles.demoItem}>
             <h3 className={styles.demoTitle}>Hover</h3>
-            <p className={styles.hint}>Hover over the input to see the effect</p>
+            <p className={styles.hint}>Hover over the input</p>
             <ChatInput
               placeholder="Ask about this project"
               onSubmit={() => {}}
-              onAttach={() => {}}
+              onAddClick={() => {}}
             />
           </div>
 
           {/* Active/Focused State */}
           <div className={styles.demoItem}>
             <h3 className={styles.demoTitle}>Active (Focus)</h3>
-            <p className={styles.hint}>Click inside to see blue border</p>
+            <p className={styles.hint}>Click inside to see action buttons</p>
             <ChatInput
               placeholder="Ask about this project"
               onSubmit={() => {}}
-              onAttach={() => {}}
+              onAddClick={() => {}}
+              onContextClick={() => console.log('Context')}
+              onCreateClick={() => console.log('Create')}
             />
           </div>
 
@@ -82,55 +86,43 @@ export default function InputDemoPage(): JSX.Element {
             <ChatInput
               value={filledValue}
               onChange={setFilledValue}
-              onSubmit={() => console.log('Submit filled')}
-              onAttach={() => console.log('Attach')}
+              onSubmit={() => console.log('Submit')}
+              onAddClick={() => {}}
+              onContextClick={() => console.log('Context')}
+              onCreateClick={() => console.log('Create')}
             />
           </div>
 
-          {/* With Context Tags */}
+          {/* Long Text */}
           <div className={styles.demoItem}>
-            <h3 className={styles.demoTitle}>With Context Tags</h3>
+            <h3 className={styles.demoTitle}>Long Text</h3>
             <ChatInput
-              value="Ask about the syllabus"
+              value="This is a much longer text that will cause the textarea to expand. It will show a custom scrollbar when it gets really long. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
               onSubmit={() => {}}
-              onAttach={() => {}}
-              contextTags={contextTags}
+              onAddClick={() => {}}
             />
           </div>
 
-          {/* With Action Buttons */}
-          <div className={styles.demoItem}>
-            <h3 className={styles.demoTitle}>With Action Buttons</h3>
-            <p className={styles.hint}>Click or type to see Context & Create buttons</p>
-            <ChatInput
-              value="Type something..."
-              onSubmit={() => {}}
-              onAttach={() => {}}
-              onContext={() => console.log('Context clicked')}
-              onCreate={() => console.log('Create clicked')}
-            />
-          </div>
-
-          {/* Loading Attachments */}
+          {/* Attachments Loading */}
           <div className={styles.demoItem}>
             <h3 className={styles.demoTitle}>Attachments Loading</h3>
             <ChatInput
               value="Add this attachment to the note"
               onSubmit={() => {}}
-              onAttach={() => {}}
-              isLoadingAttachments={true}
+              onAddClick={() => {}}
+              attachments={attachments}
             />
           </div>
 
           {/* Quiz Variant */}
           <div className={styles.demoItem}>
             <h3 className={styles.demoTitle}>Quiz Tool</h3>
-            <p className={styles.hint}>Purple text variant</p>
+            <p className={styles.hint}>Rich placeholder with purple accent</p>
             <ChatInput
               value={quizValue}
               onChange={setQuizValue}
               onSubmit={() => console.log('Submit quiz')}
-              onAttach={() => {}}
+              onAddClick={() => {}}
               aiTool="quiz"
             />
           </div>
@@ -138,43 +130,42 @@ export default function InputDemoPage(): JSX.Element {
           {/* Summary Variant */}
           <div className={styles.demoItem}>
             <h3 className={styles.demoTitle}>Summary Tool</h3>
-            <p className={styles.hint}>Purple text variant</p>
+            <p className={styles.hint}>Rich placeholder with purple accent</p>
             <ChatInput
               value={summaryValue}
               onChange={setSummaryValue}
               onSubmit={() => console.log('Submit summary')}
-              onAttach={() => {}}
+              onAddClick={() => {}}
               aiTool="summary"
             />
           </div>
 
-          {/* Flashcards Variant */}
+          {/* Create Variant */}
           <div className={styles.demoItem}>
-            <h3 className={styles.demoTitle}>Flashcards Tool</h3>
-            <p className={styles.hint}>Purple text variant</p>
+            <h3 className={styles.demoTitle}>Create Tool</h3>
+            <p className={styles.hint}>Purple accent with source reference</p>
             <ChatInput
-              value={flashcardsValue}
-              onChange={setFlashcardsValue}
-              onSubmit={() => console.log('Submit flashcards')}
-              onAttach={() => {}}
-              aiTool="flashcards"
-              onContext={() => console.log('Context')}
-              onCreate={() => console.log('Create')}
+              value={createValue}
+              onChange={setCreateValue}
+              onSubmit={() => console.log('Submit create')}
+              onAddClick={() => {}}
+              aiTool="create"
             />
           </div>
 
-          {/* All Features Combined */}
+          {/* Context Menu */}
           <div className={styles.demoItem}>
-            <h3 className={styles.demoTitle}>All Features</h3>
-            <p className={styles.hint}>Context tags + Actions + Loading</p>
+            <h3 className={styles.demoTitle}>Context Menu</h3>
+            <p className={styles.hint}>Click Context button to toggle</p>
             <ChatInput
-              value="Ask about 22 sources"
+              value="Select sources for context"
               onSubmit={() => {}}
-              onAttach={() => {}}
-              onContext={() => {}}
-              onCreate={() => {}}
-              contextTags={contextTags}
-              isLoadingAttachments={true}
+              onAddClick={() => {}}
+              onContextClick={() => setShowContext(!showContext)}
+              onCreateClick={() => {}}
+              sources={sources}
+              showContextMenu={showContext}
+              onSourceToggle={(id) => console.log('Toggle source:', id)}
             />
           </div>
         </div>
@@ -188,25 +179,25 @@ export default function InputDemoPage(): JSX.Element {
                 <strong>Default:</strong> Basic input with placeholder
               </div>
               <div className={styles.variantItem}>
-                <strong>Hover:</strong> Border color changes to #b8c5d0
+                <strong>Hover:</strong> Border color changes
               </div>
               <div className={styles.variantItem}>
-                <strong>Active:</strong> Blue border (#3092fa) with shadow
+                <strong>Active:</strong> Blue border with shadow, action buttons visible
               </div>
               <div className={styles.variantItem}>
-                <strong>Filled:</strong> Contains text, send button enabled
+                <strong>Filled:</strong> Text entered, send button active (black)
               </div>
               <div className={styles.variantItem}>
-                <strong>Quiz/Summary/Flashcards:</strong> Purple text (#9c27b0)
+                <strong>Long Text:</strong> Auto-expands with scrollbar
               </div>
               <div className={styles.variantItem}>
-                <strong>Context Tags:</strong> Chip-style tags with remove buttons
+                <strong>Attachments:</strong> Loading indicators with remove buttons
               </div>
               <div className={styles.variantItem}>
-                <strong>Action Buttons:</strong> Context & Create buttons appear when focused
+                <strong>Quiz/Summary/Create:</strong> Rich placeholder with purple accent (#f064fc)
               </div>
               <div className={styles.variantItem}>
-                <strong>Loading:</strong> Animated dots show attachment processing
+                <strong>Context Menu:</strong> Sources dropdown with checkboxes
               </div>
             </div>
           </div>
@@ -216,12 +207,13 @@ export default function InputDemoPage(): JSX.Element {
             <ul className={styles.specList}>
               <li>Border radius: 20px</li>
               <li>Padding: 12px</li>
-              <li>Border: 1px solid #d3d9e0</li>
+              <li>Min height: 100px</li>
+              <li>Border: 1px solid</li>
               <li>Font size: 16px (body), 14px (labels)</li>
               <li>Button height: 32px</li>
               <li>Gap: 8px (vertical), 4px (horizontal)</li>
-              <li>Hover border: #b8c5d0</li>
               <li>Active border: #3092fa</li>
+              <li>Purple accent: #f064fc</li>
             </ul>
           </div>
 
@@ -232,12 +224,14 @@ export default function InputDemoPage(): JSX.Element {
   value={value}
   onChange={setValue}
   onSubmit={handleSend}
-  onAttach={handleAttach}
-  onContext={handleContext}
-  onCreate={handleCreate}
+  onAddClick={handleAdd}
+  onContextClick={handleContext}
+  onCreateClick={handleCreate}
   aiTool="quiz"
-  contextTags={tags}
-  isLoadingAttachments={loading}
+  sources={sources}
+  showContextMenu={showMenu}
+  onSourceToggle={handleToggle}
+  attachments={attachments}
 />`}
             </pre>
           </div>
